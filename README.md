@@ -11,7 +11,10 @@ Import this folder into a Git repository, then import that repository in Vercel.
 Alternatively, build with `npm run build` and deploy the generated dist folder as a static site.
 
 ## Included
-- Responsive homepage retaining reference typography, colours, illustrations, hero slides and sections; mobile category circles and bottom navigation.
+- Responsive homepage retaining reference illustrations and hero slides, with mobile category circles and bottom navigation.
+- Design C editorial styling from the supplied three-style HTML: numbered custom-order rows, fine dividers, dark/gold buttons and framed purple bulk-quote panel.
+- Functional bulk quantity stepper and presets (25 through 1000+ pieces) update the WhatsApp enquiry link. Prices are confirmed by the business.
+- Removed homepage trust cards and footer payment/courier badge strips across devices.
 - Reference-style themed category mega menus with occasion icons, decorative SVG borders and artwork, submenu columns, and featured images. Supports pointer hover, click, keyboard opening and Escape. Mobile uses circular category shortcuts that open the matching themed accordion in the shop drawer. Duplicate category bands and hero tab bars are hidden on mobile.
 - Hero slides advance every 5 seconds; menu images rotate every 4 seconds. Both offer pause controls and respect reduced-motion preferences. Material, purpose and need browsing remain in a secondary navigation row.
 - Collections grouped by occasion, purpose, material and need. Checkbox filters use OR within a group and AND between groups; filters and sorting persist in shareable URLs.
