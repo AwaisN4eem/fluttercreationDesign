@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="en">
+<head><script>if(matchMedia('(max-width:760px)').matches)location.replace('mobile.html'+location.search+location.hash);</script>
+<meta name="description" content="Flutter Creations: favour boxes, baby announcements, wedding favours and personalised gifts in Lahore, Pakistan.">
+<link rel="stylesheet" href="store.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flutter Creations | Personalised Favour Boxes & Gifts</title><meta name="description" content="Discover personalised favour boxes, announcement gifts and celebration decor. Browse by occasion, purpose and material at Flutter Creations, Lahore."><meta name="theme-color" content="#2E2140">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Great+Vibes&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#FBF8FD;--lilac50:#F4EDFA;--lilac100:#EADFF4;--lilac200:#D9C6EC;--line:#E7DCF0;--line2:#F0E8F8;
+  --plum:#563A79;--plum2:#6B4C93;--plumDeep:#2E2140;--ink:#2A2233;--ink2:#463C56;--inkSoft:#5B5169;
+  --gold:#C08A2E;--goldText:#9A6B1F;--gold100:#F7EBD6;--gold200:#E8D3AC;
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost','Segoe UI',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--sans);background:var(--ground);color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:var(--plum);text-decoration:none}
+button{font-family:inherit}
+img{display:block}
+.ic{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+.ic.s{width:14px;height:14px}
+
+/* ---------- header ---------- */
+.ann{background:var(--plumDeep);color:var(--ground);padding:10px 24px;display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:center;font-size:13px;text-align:center}
+.ann a{color:var(--gold100);text-decoration:underline;text-underline-offset:3px}
+.hdr{background:#fff;padding:16px 32px;display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+.logo{display:flex;flex-direction:column;gap:2px}
+.logo .n{font-family:var(--serif);font-size:30px;font-weight:600;color:var(--plumDeep);line-height:1}
+.logo .t{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--goldText);font-weight:500}
+.search{flex:999 1 300px;min-width:0;display:flex;align-items:center;gap:10px;background:var(--lilac50);border:1px solid var(--line);border-radius:999px;padding:0 18px;height:48px;color:var(--plum2)}
+.search input{flex:1;min-width:0;border:0;background:transparent;font-size:14.5px;outline:none;color:var(--ink);font-family:inherit}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:999px;font-weight:500;cursor:pointer;border:0;min-height:48px;padding:0 22px;font-size:14.5px;text-align:center}
+.btn-pri{background:var(--plum);color:#fff}
+.btn-out{background:#fff;border:1.5px solid var(--plum);color:var(--plum)}
+.btn-gold{background:var(--gold);color:#2A2233}
+.badgeN{background:var(--gold);color:#2A2233;border-radius:999px;min-width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+.hacts{display:flex;gap:10px}
+.mIcon.mOnly,.mOnly{display:none}
+.mIcon{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:#fff;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;cursor:pointer;color:var(--plum);position:relative}
+.mIcon.solid{background:var(--plum);border-color:var(--plum);color:#fff}
+.mIcon .nb{position:absolute;top:-5px;right:-5px;background:var(--gold);color:#2A2233;border-radius:999px;min-width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:600}
+
+/* ---------- category band + drop-downs ---------- */
+.nav{background:var(--plum);position:relative;z-index:30}
+.nav ul{margin:0 auto;padding:0 24px;list-style:none;display:flex;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:4px;max-width:1240px}
+.nav li{display:flex}
+.nav li>button,.nav li>a{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;padding:16px 26px 14px;min-width:120px;background:none;border:0;cursor:pointer;color:#fff;font-size:13px;font-weight:500;letter-spacing:.16em;text-transform:uppercase}
+.nav li>button .ic,.nav li>a .ic{width:28px;height:28px;stroke-width:1.4;color:var(--gold100)}
+.nav li>button:hover,.nav li>button[aria-expanded="true"]{background:var(--plum2)}
+.nav li>button[aria-expanded="true"]::after{content:"";position:absolute;left:50%;bottom:-1px;transform:translateX(-50%);border:10px solid transparent;border-bottom-color:#fff;z-index:25}
+.nav li>a.custom{color:var(--gold100)}
+.nav li>a.custom .ic{color:var(--gold)}
+.nav li>a.custom span{border-bottom:1px solid var(--gold);padding-bottom:2px}
+.panel{display:none;position:absolute;left:0;right:0;top:100%;z-index:20;box-shadow:0 22px 40px rgba(46,33,64,.18)}
+.panel.on{display:block}
+.panel .deco-top{position:absolute;left:0;right:0;top:0;pointer-events:none;line-height:0}
+.panel .deco-top svg{display:block}
+.panel .deco-corner{position:absolute;left:36px;bottom:14px;pointer-events:none;line-height:0}
+.pin{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:84px 40px 38px;display:flex;flex-wrap:wrap;gap:36px;align-items:flex-start}
+.pquick{flex:0 0 190px;display:flex;flex-direction:column;gap:18px;min-height:290px}
+.pquick a{font-size:14.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--plumDeep)}
+.pquick a.cu{color:var(--goldText)}
+.pcol2{flex:1 1 200px;display:flex;flex-direction:column;gap:13px;min-width:0}
+.pcol2 h4{margin:0 0 4px;font-size:14px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--plumDeep)}
+.pcol2 a{font-size:16px;color:var(--ink2);display:block;line-height:1.35}
+.pcol2 a:hover{color:var(--plum)}
+.pcol2 a.all{color:var(--plum);font-weight:500;font-size:14.5px}
+.pphoto{flex:0 1 430px;min-width:260px;aspect-ratio:16/10;border-radius:4px;overflow:hidden;position:relative;background:var(--lilac100);display:block;box-shadow:0 10px 26px rgba(46,33,64,.16)}
+.pphoto img{width:100%;height:100%;object-fit:cover}
+.pphoto .ov{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(255,255,255,.88);padding:12px 26px;font-family:var(--serif);font-style:italic;font-size:34px;color:var(--plumDeep);white-space:nowrap;box-shadow:0 0 0 6px rgba(255,255,255,.35)}
+
+/* ---------- HERO SLIDER ---------- */
+.hero{position:relative;height:min(78vh,700px);min-height:560px;overflow:hidden;background:var(--plumDeep)}
+.slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .8s ease,visibility .8s;display:flex;align-items:center}
+.slide.on{opacity:1;visibility:visible}
+.slide .bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.slide .bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 7s ease}
+.slide.on .bg img{transform:scale(1)}
+.slide .shade{position:absolute;inset:0}
+.slide .topdeco{position:absolute;left:0;right:0;top:0;line-height:0;pointer-events:none;z-index:3}
+.slide .topdeco svg{display:block}
+.slide .bigdeco{position:absolute;right:4%;bottom:70px;z-index:3;pointer-events:none;line-height:0}
+.slide .bigdeco svg{width:min(30vw,340px);height:auto;position:relative}
+.slide .bigdeco::before{content:"";position:absolute;inset:-18% -14%;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.34) 0%,rgba(255,255,255,.12) 45%,rgba(255,255,255,0) 70%)}
+.slide .float{position:absolute;z-index:3;pointer-events:none;line-height:0}
+.copy{position:relative;z-index:4;max-width:1240px;width:100%;margin:0 auto;padding:90px 48px 110px}
+.copy .inner{max-width:580px;display:flex;flex-direction:column;gap:16px}
+.script{font-family:'Great Vibes',cursive;font-size:clamp(36px,3.6vw,48px);line-height:1;margin:0 0 -4px;font-weight:400}
+.orn{display:block;line-height:0;margin:4px 0 2px}
+.orn svg{width:150px;height:18px}
+.copy .cta{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:0 34px;border-radius:3px;font-size:13.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;position:relative;transition:transform .2s,box-shadow .2s}
+.copy .cta::after{content:"";position:absolute;inset:4px;border:1px solid currentColor;border-radius:2px;opacity:.35;pointer-events:none}
+.copy .cta:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.22)}
+.copy .tlink{display:inline-flex;align-items:center;min-height:56px;font-size:15px;font-weight:500;text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+.copy .btns{align-items:center;gap:26px}
+.copy h2{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(44px,6vw,78px);line-height:.98;letter-spacing:-.01em}
+.copy h2 em{font-style:italic}
+.copy p{margin:0;font-size:18px;line-height:1.6;max-width:46ch}
+.copy .btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.copy .btn{min-height:54px;padding:0 28px;font-size:15.5px}
+.slide.on .anim{animation:rise .8s both}
+.slide.on .anim:nth-child(2){animation-delay:.1s}
+.slide.on .anim:nth-child(3){animation-delay:.2s}
+.slide.on .anim:nth-child(4){animation-delay:.3s}
+.copy p.script{margin:0 0 -4px;font-family:'Great Vibes','Brush Script MT','Segoe Script',cursive;font-size:clamp(38px,3.8vw,52px);line-height:1;max-width:none}
+.copy .btns.anim{gap:28px}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+@keyframes twinkle{0%,100%{opacity:.4}50%{opacity:1}}
+.bob{animation:bob 4s ease-in-out infinite}
+.sway{transform-origin:top center;animation:sway 3.6s ease-in-out infinite}
+.twinkle{animation:twinkle 2.4s ease-in-out infinite}
+
+/* slide themes */
+.s-wed{color:#fff}
+.s-wed .shade{background:linear-gradient(90deg,rgba(104,14,32,.94) 0%,rgba(122,20,38,.82) 38%,rgba(122,20,38,.25) 72%,rgba(122,20,38,.05) 100%)}
+.s-wed .bg{background:radial-gradient(circle at 75% 50%,#E38B2C 0%,#9B1B30 60%)}
+.s-wed .script{color:#F5C518}
+.s-wed h2 em{color:#F5C518}
+.s-wed p{color:#FDE9D2}
+.s-wed .b1{background:#F5C518;color:#5C0E1C}
+.s-wed .b2{color:#fff}
+
+.s-baby{color:#20314F}
+.s-baby .shade{background:linear-gradient(90deg,rgba(234,244,255,.97) 0%,rgba(234,244,255,.9) 40%,rgba(255,232,240,.35) 74%,rgba(255,232,240,.05) 100%)}
+.s-baby .bg{background:radial-gradient(circle at 75% 50%,#FFD3E0 0%,#BFE0FA 70%)}
+.s-baby .script{color:#E0607E}
+.s-baby h2 em{color:#E0607E}
+.s-baby p{color:#3A4D6E}
+.s-baby .b1{background:#20314F;color:#fff}
+.s-baby .b2{color:#20314F}
+
+.s-bday{color:#fff}
+.s-bday .shade{background:linear-gradient(90deg,rgba(150,12,110,.95) 0%,rgba(181,23,158,.85) 38%,rgba(181,23,158,.25) 74%,rgba(181,23,158,.05) 100%)}
+.s-bday .bg{background:radial-gradient(circle at 75% 50%,#FFB703 0%,#B5179E 62%)}
+.s-bday .script{color:#FFD23F}
+.s-bday h2 em{color:#FFD23F}
+.s-bday p{color:#FFE3F6}
+.s-bday .b1{background:#FFD23F;color:#6A0B57}
+.s-bday .b2{color:#fff}
+
+.s-isl{color:#fff}
+.s-isl .shade{background:linear-gradient(90deg,rgba(8,62,46,.95) 0%,rgba(15,92,69,.86) 40%,rgba(15,92,69,.25) 74%,rgba(15,92,69,.05) 100%)}
+.s-isl .bg{background:radial-gradient(circle at 75% 45%,#2FA57D 0%,#0B4A38 65%)}
+.s-isl .script{color:#E8C766}
+.s-isl h2 em{color:#E8C766}
+.s-isl p{color:#D9F0E6}
+.s-isl .b1{background:#D9B54A;color:#0B3B2D}
+.s-isl .b2{color:#fff}
+
+.s-corp{color:#fff}
+.s-corp .shade{background:linear-gradient(90deg,rgba(18,26,40,.96) 0%,rgba(31,42,58,.88) 40%,rgba(31,42,58,.28) 74%,rgba(31,42,58,.05) 100%)}
+.s-corp .bg{background:radial-gradient(circle at 75% 50%,#5B6B82 0%,#1F2A3A 65%)}
+.s-corp .script{color:#E8C766}
+.s-corp h2 em{color:#E8C766}
+.s-corp p{color:#D6DEEA}
+.s-corp .b1{background:#D4AF37;color:#1F2A3A}
+.s-corp .b2{color:#fff}
+
+/* slider controls */
+.ctrl{position:absolute;left:0;right:0;bottom:22px;z-index:6;display:flex;justify-content:center;align-items:center;gap:10px;padding:0 16px}
+.pills{display:flex;gap:6px;background:rgba(20,12,30,.45);backdrop-filter:blur(6px);padding:6px;border-radius:999px;overflow-x:auto;max-width:100%}
+.pill{flex:0 0 auto;position:relative;overflow:hidden;min-height:40px;padding:0 16px;border-radius:999px;border:0;background:transparent;color:#fff;font-size:13px;font-weight:500;letter-spacing:.06em;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:7px}
+.pill .ic{width:16px;height:16px}
+.pill[aria-current="true"]{background:#fff;color:var(--plumDeep)}
+.pill .bar{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--gold)}
+.pill[aria-current="true"] .bar{animation:fill var(--dur,6s) linear forwards}
+.paused .pill[aria-current="true"] .bar{animation-play-state:paused}
+@keyframes fill{to{width:100%}}
+.arrow{width:48px;height:48px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:var(--plumDeep);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto}
+
+/* ---------- sections ---------- */
+.wrap{max-width:1240px;margin:0 auto;padding:72px 32px}
+.shead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.eyebrow{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--goldText);font-weight:600}
+.shead h2{margin:6px 0 0;font-family:var(--serif);font-size:48px;line-height:1.02;color:var(--plumDeep)}
+.shead p{margin:8px 0 0;font-size:15.5px;color:var(--inkSoft)}
+
+.cats{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.cat{position:relative;border-radius:22px;overflow:hidden;min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;isolation:isolate}
+.cat img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .5s}
+.cat:hover img{transform:scale(1.05)}
+.cat::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,0) 30%,var(--tint) 88%)}
+.cat .cdeco{position:absolute;left:0;right:0;top:0;line-height:0}
+.cat .cdeco svg{display:block}
+.cat .b{padding:20px;display:flex;flex-direction:column;gap:6px}
+.cat h3{margin:0;font-family:var(--serif);font-size:34px;line-height:1}
+.cat span{font-size:13.5px;opacity:.92}
+.cat .go{margin-top:6px;font-weight:500;font-size:14px;display:inline-flex;gap:6px;align-items:center}
+
+.prods{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.card .ph{aspect-ratio:1/1;background:var(--lilac50);position:relative;overflow:hidden}
+.card .ph img{width:100%;height:100%;object-fit:cover}
+.card .bs{position:absolute;top:10px;left:10px;background:var(--gold);color:#2A2233;font-size:10.5px;font-weight:600;border-radius:999px;padding:5px 10px;letter-spacing:.05em}
+.card .ev{position:absolute;top:10px;right:10px;font-size:11px;font-weight:500;border-radius:999px;padding:5px 10px;color:#fff}
+.card .b{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card h3{margin:0;font-size:15px;font-weight:500;color:var(--plumDeep);line-height:1.35}
+.card .pr{font-size:17px;font-weight:600;color:var(--plumDeep)}
+.card .add{margin-top:auto;min-height:44px}
+
+.band{border-radius:28px;padding:40px;display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between;position:relative;overflow:hidden}
+.band h2{margin:0;font-family:var(--serif);font-size:42px;line-height:1.05}
+.band p{margin:10px 0 0;font-size:16px;line-height:1.6;max-width:52ch}
+.disc{background:linear-gradient(120deg,#563A79,#8E3B8A);color:#fff}
+.disc p{color:#EADFF4}
+.tiers{display:flex;gap:12px;flex-wrap:wrap}
+.tier{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);border-radius:18px;padding:16px 22px;min-width:120px;text-align:center}
+.tier b{display:block;font-family:var(--serif);font-size:34px;line-height:1}
+.tier span{font-size:13px;color:#EADFF4}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.step{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px;display:flex;flex-direction:column;gap:10px;position:relative}
+.step .no{width:46px;height:46px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:24px;font-weight:600;color:#fff}
+.step h3{margin:0;font-family:var(--serif);font-size:28px;color:var(--plumDeep)}
+.step p{margin:0;font-size:15px;line-height:1.6;color:var(--ink2)}
+
+.gal{display:grid;grid-auto-flow:dense;grid-template-columns:repeat(6,1fr);grid-auto-rows:150px;gap:12px}
+.gal div{border-radius:16px;overflow:hidden;background:var(--lilac100);position:relative}
+.gal div img{width:100%;height:100%;object-fit:cover}
+.gal .tall{grid-row:span 2}
+.gal .wide{grid-column:span 2}
+
+.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.tr{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:6px}
+.tr b{font-size:16px;color:var(--plumDeep);font-weight:600}
+.tr span{font-size:14px;color:var(--inkSoft);line-height:1.5}
+
+footer{background:var(--plumDeep);color:#C4B6D6;padding:44px 32px 30px}
+footer .cols{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:28px 56px}
+footer b{display:block;color:#BFA2DC;font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:500;margin-bottom:10px}
+footer a{color:#E7DCF0;display:block;line-height:2}
+footer .pay{max-width:1240px;margin:26px auto 0;border-top:1px solid #4A3963;padding-top:18px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12.5px}
+footer .pay span.t{font-size:12.5px;color:#fff;border:1px solid #574470;border-radius:10px;padding:7px 12px}
+
+/* mobile drawer + bottom bar */
+.drawer{position:fixed;inset:0;z-index:80;display:none}
+.drawer.on{display:block}
+.drawer .sh{position:absolute;inset:0;background:rgba(46,33,64,.5)}
+.dpanel{position:absolute;top:0;bottom:0;left:0;width:min(88%,380px);background:#fff;display:flex;flex-direction:column;overflow-y:auto}
+.dhead{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line)}
+.dhead span{font-family:var(--serif);font-size:26px;font-weight:600;color:var(--plumDeep)}
+.acc{border-bottom:1px solid var(--line2)}
+.acc>button{width:100%;min-height:62px;display:flex;align-items:center;gap:12px;padding:0 16px;background:none;border:0;font-size:16px;color:var(--ink);cursor:pointer;text-align:left;font-weight:500}
+.acc>button .ai{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 auto;color:#fff}
+.acc>button .chev{margin-left:auto;transition:transform .15s}
+.acc>button[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.sublist{display:none;padding:2px 0 10px}
+.sublist.on{display:block}
+.sublist a{display:flex;min-height:44px;align-items:center;padding:0 16px 0 68px;font-size:14.5px;color:var(--ink2)}
+.mbar{display:none}
+
+@media (max-width:1060px){
+  .cats{grid-template-columns:repeat(3,1fr)}
+  .prods{grid-template-columns:repeat(2,1fr)}
+  .gal{grid-template-columns:repeat(3,1fr)}
+  .trust{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:860px){
+  .nav{display:none}
+  .mIcon.mOnly,.mOnly{display:inline-flex}
+  .hdr{padding:12px 16px;gap:12px}
+  .hdr .search{order:5;flex-basis:100%}
+  .hacts{display:none}
+  .logo{flex:1;align-items:center}
+  .logo .n{font-size:24px}
+  .ann{padding:9px 16px;font-size:12px}
+  .hero{height:auto;min-height:640px}
+  .slide{align-items:flex-end}
+  .slide .shade{background-image:none!important}
+  .s-wed .shade{background:linear-gradient(180deg,rgba(122,20,38,.15) 0%,rgba(104,14,32,.92) 55%)}
+  .s-baby .shade{background:linear-gradient(180deg,rgba(234,244,255,.1) 0%,rgba(234,244,255,.96) 52%)}
+  .s-bday .shade{background:linear-gradient(180deg,rgba(181,23,158,.15) 0%,rgba(150,12,110,.93) 55%)}
+  .s-isl .shade{background:linear-gradient(180deg,rgba(15,92,69,.15) 0%,rgba(8,62,46,.93) 55%)}
+  .s-corp .shade{background:linear-gradient(180deg,rgba(31,42,58,.15) 0%,rgba(18,26,40,.94) 55%)}
+  .copy{padding:150px 18px 104px}
+  .copy p{font-size:16px}
+  .slide .bigdeco{right:8px;top:70px;bottom:auto}
+  .slide .bigdeco svg{width:130px}
+  .slide .float{display:none}
+  .arrow{display:none}
+  .pill{padding:0 13px}
+  .pill .l{display:none}
+  .pill[aria-current="true"] .l{display:inline}
+  .copy .cta{padding:0 24px;letter-spacing:.12em}
+  .copy .btns.anim{gap:18px}
+  .copy p.script{font-size:36px}
+  .wrap{padding:52px 16px}
+  .shead h2{font-size:36px}
+  .cats{grid-template-columns:1fr 1fr}
+  .cat{min-height:240px}
+  .cat:first-child{grid-column:span 2}
+  .cat h3{font-size:28px}
+  .steps{grid-template-columns:1fr}
+  .band{padding:28px 22px}
+  .band h2{font-size:32px}
+  .gal{grid-auto-rows:110px}
+  footer{padding:36px 16px 96px}
+  .mbar{display:grid;position:fixed;left:0;right:0;bottom:0;z-index:70;background:#fff;border-top:1px solid var(--line);padding:6px 8px;grid-template-columns:repeat(5,1fr)}
+  .mbar a,.mbar button{min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--inkSoft);font-size:10.5px;background:none;border:0}
+  .mbar .cur{color:var(--plum);font-weight:500}
+}
+@media (max-width:520px){
+  .prods{gap:12px}
+  .card .b{padding:10px}
+  .card h3{font-size:13.5px}
+  .trust{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  .bob,.sway,.twinkle,.slide.on .anim,.slide .bg img{animation:none!important;transition:none!important;transform:none!important}
+  .pill .bar{display:none}
+}
+</style>
+</head>
+<body>
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9.5 8V6.5a2.5 2.5 0 0 1 5 0V8"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L4 20l1.2-4.2A8.5 8.5 0 1 1 21 11.5Z"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12"/><path d="M18 6 6 18"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7"/><path d="M6 10v10h12V10"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></symbol>
+  <symbol id="c-Wedding" viewBox="0 0 24 24"><circle cx="9" cy="14" r="5"/><circle cx="15" cy="14" r="5"/><path d="m10 5 2-2 2 2-2 2Z"/></symbol>
+  <symbol id="c-Baby" viewBox="0 0 24 24"><path d="M4 11a8 8 0 0 0 16 0Z"/><path d="M12 11V3a8 8 0 0 1 8 8"/><circle cx="8" cy="20" r="1.5"/><circle cx="16" cy="20" r="1.5"/></symbol>
+  <symbol id="c-Birthday" viewBox="0 0 24 24"><path d="M4 21h16"/><path d="M5 21v-7h14v7"/><path d="M5 17c2.3 1.4 4.7 1.4 7 0s4.7-1.4 7 0"/><path d="M12 14v-3"/><path d="M12 8.5c-1 0-1.5-.8-1.5-1.5S12 4 12 4s1.5 2.3 1.5 3-.5 1.5-1.5 1.5Z"/></symbol>
+  <symbol id="c-Islamic" viewBox="0 0 24 24"><path d="M19 15.5A8 8 0 1 1 12.5 4a6.3 6.3 0 0 0 6.5 11.5Z"/><path d="m18 5 .7 1.5 1.6.2-1.2 1.1.3 1.6-1.4-.8-1.4.8.3-1.6-1.2-1.1 1.6-.2Z"/></symbol>
+  <symbol id="c-Corporate" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></symbol>
+  <symbol id="c-Custom" viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="1.5"/><path d="M3 9h18"/><path d="M12 9v11"/><path d="M12 9c-2-3-6-4-6-1.5S10 9 12 9Zm0 0c2-3 6-4 6-1.5S14 9 12 9Z"/></symbol>
+</svg>
+
+<div class="ann"><span>The bigger the quantity, the bigger the discount</span><span aria-hidden="true" style="opacity:.5">|</span><a href="https://wa.me/923008463584">Order on WhatsApp 0300 846 3584</a></div>
+<header class="hdr">
+  <button class="mIcon mOnly" data-open="drawer" aria-label="Open menu"><svg class="ic"><use href="#i-menu"/></svg></button>
+  <a class="logo" href="#"><span class="n">Flutter Creations</span><span class="t">Favour boxes · Decor · Lahore</span></a>
+  <a class="mIcon solid mOnly" href="#" aria-label="Cart"><svg class="ic"><use href="#i-cart"/></svg><span class="nb">2</span></a>
+  <form class="search" onsubmit="return false"><svg class="ic"><use href="#i-search"/></svg><input type="search" aria-label="Search products" placeholder="Search &ldquo;potli&rdquo;, &ldquo;umrah box&rdquo;, &ldquo;baby girl&rdquo;…"></form>
+  <div class="hacts"><a class="btn btn-out" href="https://wa.me/923008463584"><svg class="ic"><use href="#i-wa"/></svg>WhatsApp</a><a class="btn btn-pri" href="#"><svg class="ic"><use href="#i-cart"/></svg>Cart <span class="badgeN">2</span></a></div>
+</header>
+<nav class="nav" id="dnav" aria-label="Categories"><ul id="dmenu"></ul><div id="dpanels"></div></nav>
+
+<!-- ================= HERO SLIDER ================= -->
+<section class="hero" id="hero" aria-roledescription="carousel" aria-label="Celebrations">
+  <div id="slides"></div>
+  <div class="ctrl">
+    <button class="arrow" id="prev" aria-label="Previous slide"><svg class="ic"><use href="#i-left"/></svg></button>
+    <div class="pills" id="pills" role="tablist"></div>
+    <button class="arrow" id="next" aria-label="Next slide"><svg class="ic"><use href="#i-right"/></svg></button>
+  </div>
+</section>
+
+<!-- ================= CATEGORIES ================= -->
+<section class="wrap">
+  <div class="shead"><div><span class="eyebrow">Shop by celebration</span><h2>What are you celebrating?</h2></div><a href="#" style="font-weight:500">See all products →</a></div>
+  <div class="cats" id="cats"></div>
+</section>
+
+<!-- ================= BESTSELLERS ================= -->
+<section class="wrap" style="padding-top:0">
+  <div class="shead"><div><span class="eyebrow">Ordered most</span><h2>Our customers' favourites</h2></div><a href="#" style="font-weight:500">Shop bestsellers →</a></div>
+  <div class="prods" id="prods"></div>
+</section>
+
+<!-- ================= DISCOUNT ================= -->
+<section class="wrap" style="padding-top:0">
+  <div class="band disc">
+    <div><span class="eyebrow" style="color:#F7EBD6">Bulk pricing</span><h2>Order more, pay less per piece.</h2><p>Planning a larger celebration? Share your quantity with us for a personalised bulk quote.</p></div>
+    <div class="tiers"><div class="tier"><b>50</b><span>pieces</span></div><div class="tier"><b>100</b><span>pieces</span></div><div class="tier"><b>250+</b><span>pieces</span></div></div>
+  </div>
+</section>
+
+<!-- ================= CUSTOM ORDER ================= -->
+<section class="wrap" style="padding-top:0">
+  <div class="shead"><div><span class="eyebrow">Custom Order</span><h2>Your idea, made by us</h2><p>Planned and confirmed with you on WhatsApp before we make anything.</p></div><a class="btn btn-gold" href="https://wa.me/923008463584"><svg class="ic"><use href="#c-Custom"/></svg>Start a custom order</a></div>
+  <div class="steps">
+    <div class="step"><span class="no" style="background:#C0392B">1</span><h3>Pick a box</h3><p>Tin, acrylic, velvet, potli or jute — any product that takes a tag.</p></div>
+    <div class="step"><span class="no" style="background:#1F7A5C">2</span><h3>Pick a filling</h3><p>Mithai, dry fruit, chocolate or attar — or leave it empty.</p></div>
+    <div class="step"><span class="no" style="background:#B5179E">3</span><h3>Add your tag</h3><p>Names, date and your own words. We send the design to you before printing.</p></div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section class="wrap" style="padding-top:0">
+  <div class="shead"><div><span class="eyebrow">Real celebrations</span><h2>Details worth celebrating</h2><p>A closer look at the details, colours and finishes in our collection.</p></div></div>
+  <div class="gal" id="gal"></div>
+</section>
+
+<!-- ================= TRUST ================= -->
+<section class="wrap" style="padding-top:0">
+  <div class="trust">
+    <div class="tr"><b>Real photos only</b><span>Every picture is our own work, not a stock image.</span></div>
+    <div class="tr"><b>50% advance confirms</b><span>Send the receipt on WhatsApp and your order is booked.</span></div>
+    <div class="tr"><b>Delivered across Pakistan</b><span>Trax for regular orders; TCS and Fastex for urgent ones.</span></div>
+    <div class="tr"><b>Visit our Lahore workshop</b><span>Contact us for the workshop location — see the boxes before you order.</span></div>
+  </div>
+</section>
+
+<footer>
+  <div class="cols">
+    <div><b>Shop</b><a href="#">Wedding</a><a href="#">Baby</a><a href="#">Birthday</a><a href="#">Islamic</a><a href="#">Corporate</a><a href="#">Custom Order</a></div>
+    <div><b>Help</b><a href="#">How bulk discounts work</a><a href="#">Delivery</a><a href="#">Payment &amp; 50% advance</a><a href="#">FAQs</a></div>
+    <div><b>Flutter Creations</b><a href="#">About us</a><a href="#">Contact us</a><a href="#">Real celebrations</a></div>
+    <div><b>Reach us</b><a href="https://wa.me/923008463584" style="color:#fff;font-weight:500">0300 846 3584</a><a href="#">creationsflutter@gmail.com</a><a href="#">Lahore, Pakistan</a></div>
+  </div>
+  <div class="pay"><span>Pay with</span><span class="t">JazzCash</span><span class="t">Easypaisa</span><span class="t">NayaPay</span><span class="t">SadaPay</span><span class="t">Bank transfer</span><span style="margin-left:10px">Delivered by</span><span class="t">Trax</span><span class="t">TCS</span><span class="t">Fastex</span></div>
+</footer>
+
+<!-- mobile -->
+<div class="drawer" id="drawer">
+  <div class="sh" data-close="drawer"></div>
+  <div class="dpanel">
+    <div class="dhead"><span>Shop</span><button class="mIcon" data-close="drawer" aria-label="Close menu"><svg class="ic"><use href="#i-close"/></svg></button></div>
+    <div id="acc"></div>
+    <div style="padding:16px;display:flex;flex-direction:column;gap:10px"><a class="btn btn-gold" href="#"><svg class="ic"><use href="#c-Custom"/></svg>Custom Order</a><a class="btn btn-pri" href="https://wa.me/923008463584"><svg class="ic"><use href="#i-wa"/></svg>0300 846 3584</a></div>
+  </div>
+</div>
+<nav class="mbar" aria-label="Quick links">
+  <a class="cur" href="#"><svg class="ic"><use href="#i-home"/></svg>Home</a>
+  <button data-open="drawer"><svg class="ic"><use href="#i-grid"/></svg>Shop</button>
+  <a href="#"><svg class="ic"><use href="#i-search"/></svg>Search</a>
+  <a href="https://wa.me/923008463584"><svg class="ic"><use href="#i-wa"/></svg>WhatsApp</a>
+  <a href="#"><svg class="ic"><use href="#i-cart"/></svg>Cart (2)</a>
+</nav>
+
+<script>
+var C=[{"n": "Wedding", "total": 287, "tag": "Bid boxes, potlis and mithai boxes for every wedding event", "subs": [{"n": "Bid & Favour Boxes", "c": 124}, {"n": "Potlis & Pouches", "c": 94}, {"n": "Mithai Boxes", "c": 24}, {"n": "Jars, Matkis & Cute Extras", "c": 27}, {"n": "Bari, Jora & Trays", "c": 18}], "feat": [{"t": "Velvet Bid Box with Qabool Hai", "p": 395}, {"t": "Acrylic Bid with Wax Seal and Baby Breath", "p": 475}], "photo": {"t": "Velvet Bid Box with Qabool Hai", "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-VelvetBidwithQaboolHai10.jpg?v=1753694163"}, "cols": [["By event", [["Nikkah", 27], ["Baat Pakki & Engagement", 16], ["Mehndi", 25], ["Walima & Barat", null], ["Bridal Shower", 1]]]], "quick": {"best": 7, "new": 6, "sale": 2}}, {"n": "Baby", "total": 251, "tag": "Announcement boxes to share your happy news", "subs": [{"n": "It's a Girl", "c": 104}, {"n": "It's a Boy", "c": 92}, {"n": "Twins, Neutral & Baby Shower", "c": 41}, {"n": "First Tooth", "c": 14}], "feat": [{"t": "Train & Bear 3D - Baby Boy Announcement Box", "p": 375}, {"t": "Tin Box with Crochet Design (Imported) - Baby Boy Announcement", "p": 650}], "photo": {"t": "Train & Bear 3D - Baby Boy Announcement Box", "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-BearnCar6.jpg?v=1753351437"}, "cols": [["By box style", [["Tin Boxes", 52], ["Acrylic Boxes", 21], ["Hardboard Boxes", 26], ["Drawer & Book Style", 19], ["Cradle & Basket", 6]]]], "quick": {"best": 6, "new": 2, "sale": 2}}, {"n": "Birthday", "total": 255, "tag": "Goody bags, banners and cutouts for kids' parties", "subs": [{"n": "Goody Bags & Boxes", "c": 125}, {"n": "Banners, Backdrops & Standees", "c": 70}, {"n": "Name Cutouts", "c": 35}, {"n": "Caps, Invites & Party Extras", "c": 25}], "feat": [{"t": "Teddy Bear Candy Box", "p": 275}, {"t": "Sonic Theme Goody Box", "p": 450}], "photo": {"t": "Honey Bee Goody Boxes", "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/eZyWatermark_08-07-2019_05-18-22PM_Custom.jpg?v=1701019171"}, "cols": [["By theme", [["Jungle & Safari", 26], ["Unicorn & Rainbow", 14], ["Princess", 11], ["Cars & Vehicles", 8], ["Mermaid & Sea", 16], ["Teddy & Honey Bee", 8]]]], "quick": {"best": 3, "new": 1, "sale": 8}}, {"n": "Islamic", "total": 91, "tag": "Tabarruk, Ramadan, Eid and Ameen giveaways", "subs": [{"n": "Hajj & Umrah Tabarruk", "c": 46}, {"n": "Ramadan & Eid", "c": 19}, {"n": "Ameen & Aqiqah", "c": 15}, {"n": "Tasbeeh, Frames & Giveaways", "c": 11}], "feat": [{"t": "Black Umrah Box with Ribbon & Tag", "p": 385}, {"t": "Black Umrah Tabaruk Box with Ribbon and Top Print", "p": 395}], "photo": {"t": "Black Umrah Box with Ribbon & Tag", "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-Blackhardboard1.jpg?v=1750061912"}, "cols": [["Popular picks", [["Umrah Tabarruk Bags", 9], ["Hajj Boxes", 10], ["Date Boxes", 7], ["Zam Zam Bottles", 3], ["Takmeel-e-Quran Boxes", 10]]]], "quick": {"best": 6, "new": 0, "sale": 2}}, {"n": "Corporate", "total": 52, "tag": "Logo gifts, special days and plain boxes in bulk", "subs": [{"n": "Branded & Logo Gifts", "c": 12}, {"n": "Graduation & Special Days", "c": 12}, {"n": "Plain Boxes & Trays", "c": 28}], "feat": [{"t": "Red Ribbon Graduation Box", "p": 490}, {"t": "Plain Acrylic Box with Lock", "p": 0}], "photo": {"t": "Red Ribbon Graduation Box", "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/redribbonbox1.jpg?v=1726481388"}, "cols": [["Order your way", [["Logo printing on boxes", null], ["Bulk price list", null], ["Get a quote on WhatsApp", null]]]], "quick": {"best": 0, "new": 1, "sale": 1}}];
+var P={"Wedding": [{"t": "Gota Bid Tokri", "p": 175, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-GottaBidTokri10_69a2a28b-4493-4528-8281-6f48db42e508.jpg?v=1753178036", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-GottaBidTokri1_e178bba4-292e-45bc-8a1a-20fc846088cc.jpg?v=1753178036"}, {"t": "Velvet Bid Box with Qabool Hai", "p": 395, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-VelvetBidwithQaboolHai10.jpg?v=1753694163", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-VelvetBidwithQaboolHai1.jpg?v=1753694162"}, {"t": "Bridal Bari Bags/Gota Dress Covers", "p": 890, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-BariBag6.jpg?v=1753251046", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-BariBag2.jpg?v=1753251046"}, {"t": "Acrylic Bid with Wax Seal and Baby Breath", "p": 475, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-AcrylicBidwithwaxsealandbabybreath6.jpg?v=1753689564", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-AcrylicBidwithwaxsealandbabybreath1.jpg?v=1753689564"}, {"t": "Premium Jute Bags/Pouches with Baby Breath", "p": 275, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-WhiteJuteLarge3.jpg?v=1753440400", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-WhiteJuteLarge2.jpg?v=1753440400"}, {"t": "Treasure/Tijori Box (With flower and tag)", "p": 370, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-Treasure4incheswithflowerntag1.jpg?v=1753249967", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-Treasure4incheswithflowerntag2.jpg?v=1753249968"}], "Baby": [{"t": "Tin Box with Crochet Design (Imported) - Baby Boy Announcement", "p": 650, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-ImportedTin300gm1.jpg?v=1753345399", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-ImportedTin300gm2.jpg?v=1753345399"}, {"t": "Baby Girl Announcement Acrylic Box - Pink Crochet with Rainbow", "p": 1290, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-Rainbowcrochetacrylic1.jpg?v=1750746299", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-Rainbowcrochetacrylic2.jpg?v=1750746299"}, {"t": "Train & Bear 3D - Baby Boy Announcement Box", "p": 375, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-BearnCar6.jpg?v=1753351437", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-BearnCar7.jpg?v=1753351437"}, {"t": "Baby Boy Announcement Box - Double Footprint Crochet", "p": 570, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-DoubleFootprint1.jpg?v=1750922283", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-DoubleFootprint2.jpg?v=1750922283"}, {"t": "Maroon Crochet - Baby Girl Announcement Acrylic Box", "p": 1290, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/Marooncrochet3.jpg?v=1719820954", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/Marooncrochet1.jpg?v=1719820954"}, {"t": "Baby Boy Announcement Box - Teddy Bear with Wooden Letters", "p": 690, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/nyle2_2ac9143a-52f0-413b-bc89-30e55f1d8a36.jpg?v=1750919759", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/nyle1_76cb1629-5693-4d24-9834-b12956e8c2f3.jpg?v=1750919759"}], "Birthday": [{"t": "Teddy Bear Candy Box", "p": 275, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-TeddyBearCandyBox1.jpg?v=1751967622", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-TeddyBearCandyBox2.jpg?v=1751967622"}, {"t": "Aeroplane Gable Goody Box", "p": 590, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/Aeroplane1.jpg?v=1751610855", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/Aeroplane.jpg?v=1751610855"}, {"t": "Plain Letter/Digit cutout", "p": 1000, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/Aletter2_0415c1a3-a616-4b77-b749-1201224eae46.jpg?v=1752650621", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/Aletter1_904b5460-f1cc-4abc-817d-e5df2332947d.jpg?v=1752650621"}, {"t": "Plain Goody Bags", "p": 100, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/plainblue.jpg?v=1725949039", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/plainblue1.jpg?v=1725949039"}, {"t": "Pastel Goody Bags", "p": 100, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/eZyWatermark_21-01-2020_01-33-01PM_Custom_5b8f47e4-78e8-4392-8ee3-ffde530ea778.jpg?v=1725946030", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/eZyWatermark_21-01-2020_01-33-39PM_Custom_5b4bab8a-0c83-46b6-a422-1051779e81fb.jpg?v=1725946031"}, {"t": "Plain Pastel Coloured Goody Bags", "p": 0, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/eZyWatermark_21-01-2020_01-33-01PM_Custom.jpg?v=1701014975", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/eZyWatermark_21-01-2020_01-33-39PM_Custom.jpg?v=1701014975"}], "Islamic": [{"t": "Black Umrah Tabaruk Box with Ribbon and Top Print", "p": 395, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-BlkwithLabelntag1.jpg?v=1750060564", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-BlkwithLabelntag2.jpg?v=1750060564"}, {"t": "Black Umrah Box with Ribbon & Tag", "p": 385, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-Blackhardboard1.jpg?v=1750061912", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-Blackhardboard2.jpg?v=1750061912"}, {"t": "White Umrah Tabaruk Box", "p": 385, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-Whitewithribbon1.jpg?v=1750060136", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-Whitewithribbon2.jpg?v=1750060136"}, {"t": "Umrah Golden Box with Flower, Ribbon & Tag", "p": 365, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-DecoratedGolden2.jpg?v=1750056025", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-DecoratedGolden3.jpg?v=1750056025"}, {"t": "Umrah Acrylic Box with Umrah Ribbon & Tag", "p": 1190, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-AcrylicBox1.jpg?v=1750050867", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-AcrylicBox2.jpg?v=1750050867"}, {"t": "Ameen Boxes - Navy", "p": 395, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/Ameen3.jpg?v=1753859192", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/Ameen1.jpg?v=1753859192"}], "Corporate": [{"t": "Red Ribbon Graduation Box", "p": 490, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/redribbonbox1.jpg?v=1726481388", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/redribbonbox2.jpg?v=1726481388"}, {"t": "Plain Acrylic Box with Lock", "p": 0, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/eZyWatermark_14-01-2020_12-48-30PM_Custom.jpg?v=1698587639", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/eZyWatermark_01-05-2019_03-05-21PM_Custom.png?v=1698588527"}, {"t": "Plain Cardboard Khaki Boxes", "p": 130, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/eZyWatermark_07-04-2020_03-31-42PM_Custom_1abcb577-adb4-4403-bf5b-74e1fd94fac4.jpg?v=1726483544", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/eZyWatermark_07-04-2020_03-32-17PM_Custom_323f1911-0eac-42d5-a0b6-fd0363f48ffa.jpg?v=1726483544"}, {"t": "Multi Purpose Acrylic Box with Tray", "p": 1290, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-CookieBoxwithtray7.jpg?v=1750831038", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-CookieBoxwithtray1.jpg?v=1750831038"}, {"t": "Fathers Day Mug", "p": 890, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/Mug1.jpg?v=1726315309", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/Mug2.jpg?v=1726315309"}, {"t": "Long Form Graduation Box", "p": 260, "img": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-LongformGrad1.jpg?v=1750142120", "img2": "https://cdn.shopify.com/s/files/1/0576/8636/0196/files/FINAL-LongformGrad2.jpg?v=1750142120"}]};
+var DECO = {
+  Wedding: {
+    bg: '#FFF8EE', accent: '#E07B1F',
+    top: '<svg width="100%" height="64" aria-hidden="true"><defs><pattern id="pt-wed" width="56" height="64" patternUnits="userSpaceOnUse">'
+      + '<path d="M0 5 Q28 24 56 5" fill="none" stroke="#C0392B" stroke-width="2.2"/>'
+      + '<path d="M0 5 Q28 18 56 5" fill="none" stroke="#D4AF37" stroke-width="1.2"/>'
+      + '<line x1="28" y1="5" x2="28" y2="52" stroke="#3E8E41" stroke-width="1.2"/>'
+      + '<circle cx="28" cy="14" r="5.5" fill="#F39C12"/><circle cx="28" cy="25" r="5.5" fill="#F5C518"/><circle cx="28" cy="36" r="5.5" fill="#F39C12"/><circle cx="28" cy="47" r="5" fill="#E74C3C"/>'
+      + '<circle cx="28" cy="14" r="2" fill="#E67E22"/><circle cx="28" cy="25" r="2" fill="#F39C12"/><circle cx="28" cy="36" r="2" fill="#E67E22"/>'
+      + '<path d="M0 5 l-6 16 l6 -4 l6 4 Z" fill="#3E8E41"/><path d="M56 5 l-6 16 l6 -4 l6 4 Z" fill="#3E8E41"/>'
+      + '</pattern></defs><rect width="100%" height="5" fill="#D4AF37"/><rect y="0" width="100%" height="64" fill="url(#pt-wed)"/></svg>',
+    corner: '<svg viewBox="0 0 170 120" width="170" height="120" aria-hidden="true">'
+      /* dhol */
+      + '<g transform="translate(6 34)"><path d="M10 6 Q40 -4 70 6 L70 66 Q40 76 10 66 Z" fill="#C0392B"/>'
+      + '<ellipse cx="10" cy="36" rx="9" ry="30" fill="#F5C518" stroke="#8E5A12" stroke-width="2"/><ellipse cx="70" cy="36" rx="9" ry="30" fill="#F5C518" stroke="#8E5A12" stroke-width="2"/>'
+      + '<path d="M14 10 L28 62 L42 10 L56 62 L66 14" fill="none" stroke="#fff" stroke-width="2"/>'
+      + '<path d="M18 4 Q40 -2 62 4" fill="none" stroke="#D4AF37" stroke-width="3"/><path d="M18 68 Q40 74 62 68" fill="none" stroke="#D4AF37" stroke-width="3"/></g>'
+      /* rings */
+      + '<g transform="translate(104 52)"><circle cx="16" cy="30" r="15" fill="none" stroke="#D4AF37" stroke-width="5"/><circle cx="38" cy="30" r="15" fill="none" stroke="#E8C766" stroke-width="5"/>'
+      + '<path d="M10 10 l6 -8 l6 8 l-6 8 Z" fill="#A8E0F0" stroke="#5DADE2" stroke-width="1.2"/></g>'
+      + '<circle cx="96" cy="22" r="5" fill="#F39C12"/><circle cx="110" cy="14" r="4" fill="#F5C518"/><circle cx="150" cy="24" r="5" fill="#E74C3C"/></svg>'
+  },
+  Baby: {
+    bg: '#F6FAFF', accent: '#7FB8E6',
+    top: '<svg width="100%" height="64" aria-hidden="true"><defs><pattern id="pt-baby" width="200" height="64" patternUnits="userSpaceOnUse">'
+      + '<path d="M0 6 Q50 18 100 6 Q150 18 200 6" fill="none" stroke="#B9A6D9" stroke-width="2"/>'
+      + '<polygon points="8,8 40,13 24,44" fill="#F7B6C8"/><polygon points="58,13 90,9 74,44" fill="#A9D6F5"/>'
+      + '<polygon points="108,8 140,13 124,44" fill="#FBE29F"/><polygon points="158,13 190,9 174,44" fill="#BFE8D7"/>'
+      + '<circle cx="24" cy="22" r="3" fill="#fff"/><circle cx="74" cy="22" r="3" fill="#fff"/><circle cx="124" cy="22" r="3" fill="#fff"/><circle cx="174" cy="22" r="3" fill="#fff"/>'
+      + '</pattern></defs><rect width="100%" height="64" fill="url(#pt-baby)"/></svg>',
+    corner: '<svg viewBox="0 0 170 120" width="170" height="120" aria-hidden="true">'
+      + '<path d="M20 92 a18 18 0 0 1 10 -32 a24 24 0 0 1 44 -6 a16 16 0 0 1 20 22 a14 14 0 0 1 -6 16 Z" fill="#fff" stroke="#A9D6F5" stroke-width="3"/>'
+      + '<path d="M120 20 q10 18 28 22 q-18 4 -28 22 q-10 -18 -28 -22 q18 -4 28 -22 Z" fill="#FBE29F"/>'
+      + '<path d="M140 74 l3 7 l7 1 l-5 5 l1 7 l-6 -3 l-6 3 l1 -7 l-5 -5 l7 -1 Z" fill="#F7B6C8"/>'
+      + '<g transform="translate(96 70)"><circle cx="12" cy="12" r="11" fill="#F7B6C8"/><circle cx="12" cy="12" r="5" fill="#fff"/><rect x="10" y="22" width="4" height="22" rx="2" fill="#A9D6F5"/></g>'
+      + '<circle cx="40" cy="30" r="4" fill="#BFE8D7"/><circle cx="62" cy="16" r="3" fill="#A9D6F5"/></svg>'
+  },
+  Birthday: {
+    bg: '#FFF7FB', accent: '#E84A8A',
+    top: '<svg width="100%" height="64" aria-hidden="true"><defs><pattern id="pt-bday" width="180" height="64" patternUnits="userSpaceOnUse">'
+      + '<path d="M0 4 L180 4" stroke="#7D3C98" stroke-width="2"/>'
+      + '<polygon points="4,4 30,4 17,30" fill="#E84A8A"/><polygon points="34,4 60,4 47,30" fill="#F5B700"/><polygon points="64,4 90,4 77,30" fill="#2EAADC"/>'
+      + '<polygon points="94,4 120,4 107,30" fill="#7AC74F"/><polygon points="124,4 150,4 137,30" fill="#9B59B6"/><polygon points="154,4 180,4 167,30" fill="#FF7F50"/>'
+      + '<circle cx="12" cy="46" r="3" fill="#F5B700"/><rect x="40" y="40" width="7" height="7" transform="rotate(25 43 43)" fill="#2EAADC"/><circle cx="70" cy="54" r="2.5" fill="#E84A8A"/>'
+      + '<path d="M96 46 q4 -6 8 0 q4 6 8 0" fill="none" stroke="#7AC74F" stroke-width="2.4"/><circle cx="132" cy="52" r="3" fill="#9B59B6"/><rect x="156" y="42" width="6" height="6" transform="rotate(40 159 45)" fill="#FF7F50"/>'
+      + '</pattern></defs><rect width="100%" height="64" fill="url(#pt-bday)"/></svg>',
+    corner: '<svg viewBox="0 0 170 130" width="170" height="130" aria-hidden="true">'
+      + '<path d="M44 60 Q50 90 70 126" fill="none" stroke="#999" stroke-width="1.2"/><path d="M82 52 Q78 90 72 126" fill="none" stroke="#999" stroke-width="1.2"/><path d="M118 62 Q100 92 74 126" fill="none" stroke="#999" stroke-width="1.2"/>'
+      + '<ellipse cx="44" cy="40" rx="22" ry="26" fill="#E84A8A"/><path d="M40 66 l4 -6 l4 6 Z" fill="#E84A8A"/><ellipse cx="37" cy="30" rx="5" ry="8" fill="#fff" opacity=".45"/>'
+      + '<ellipse cx="82" cy="30" rx="22" ry="26" fill="#F5B700"/><path d="M78 56 l4 -6 l4 6 Z" fill="#F5B700"/><ellipse cx="75" cy="20" rx="5" ry="8" fill="#fff" opacity=".45"/>'
+      + '<ellipse cx="120" cy="42" rx="22" ry="26" fill="#2EAADC"/><path d="M116 68 l4 -6 l4 6 Z" fill="#2EAADC"/><ellipse cx="113" cy="32" rx="5" ry="8" fill="#fff" opacity=".45"/>'
+      + '<circle cx="150" cy="96" r="4" fill="#7AC74F"/><circle cx="16" cy="100" r="3.5" fill="#9B59B6"/><rect x="140" y="12" width="7" height="7" transform="rotate(30 143 15)" fill="#FF7F50"/></svg>'
+  },
+  Islamic: {
+    bg: '#F3FAF6', accent: '#1F7A5C',
+    top: '<svg width="100%" height="70" aria-hidden="true"><defs><pattern id="pt-isl" width="150" height="70" patternUnits="userSpaceOnUse">'
+      + '<line x1="40" y1="0" x2="40" y2="16" stroke="#C9A227" stroke-width="1.5"/>'
+      + '<path d="M32 16 L48 16 L44 22 L36 22 Z" fill="#C9A227"/>'
+      + '<path d="M33 22 L47 22 L50 44 L30 44 Z" fill="#1F7A5C" stroke="#C9A227" stroke-width="1.5"/>'
+      + '<path d="M37 42 L37 31 Q40 25 43 31 L43 42 Z" fill="#F5D76E"/>'
+      + '<path d="M30 44 L50 44 L40 54 Z" fill="#C9A227"/><line x1="40" y1="54" x2="40" y2="62" stroke="#C9A227" stroke-width="1.5"/><circle cx="40" cy="64" r="2.4" fill="#C9A227"/>'
+      + '<path d="M112 14 a9 9 0 1 0 8 13 a7 7 0 1 1 -8 -13 Z" fill="#C9A227"/>'
+      + '<path d="M128 10 l1.6 3.6 l3.8 .4 l-2.9 2.6 l.8 3.8 l-3.3 -2 l-3.3 2 l.8 -3.8 l-2.9 -2.6 l3.8 -.4 Z" fill="#C9A227"/>'
+      + '<circle cx="92" cy="32" r="1.8" fill="#C9A227"/><circle cx="140" cy="38" r="1.6" fill="#1F7A5C"/>'
+      + '</pattern></defs><rect width="100%" height="3" fill="#C9A227"/><rect width="100%" height="70" fill="url(#pt-isl)"/></svg>',
+    corner: '<svg viewBox="0 0 170 120" width="170" height="120" aria-hidden="true">'
+      + '<path d="M20 118 L20 74 Q20 48 50 36 Q80 48 80 74 L80 118 Z" fill="#1F7A5C"/>'
+      + '<path d="M50 36 L50 22" stroke="#C9A227" stroke-width="2"/><path d="M46 20 a5 5 0 1 0 6 -6 a4 4 0 1 1 -6 6 Z" fill="#C9A227"/>'
+      + '<path d="M40 118 L40 90 Q50 78 60 90 L60 118 Z" fill="#F5D76E"/>'
+      + '<rect x="88" y="54" width="12" height="64" fill="#1F7A5C"/><path d="M86 54 L94 38 L102 54 Z" fill="#C9A227"/>'
+      + '<path d="M140 20 a16 16 0 1 0 14 24 a13 13 0 1 1 -14 -24 Z" fill="#C9A227"/>'
+      + '<path d="M150 64 l2 4.5 l5 .5 l-3.8 3.3 l1.1 4.9 l-4.3 -2.6 l-4.3 2.6 l1.1 -4.9 l-3.8 -3.3 l5 -.5 Z" fill="#C9A227"/></svg>'
+  },
+  Corporate: {
+    bg: '#F6F7FB', accent: '#2E3B4E',
+    top: '<svg width="100%" height="60" aria-hidden="true"><defs><pattern id="pt-corp" width="160" height="60" patternUnits="userSpaceOnUse">'
+      + '<path d="M0 14 Q40 26 80 14 T160 14" fill="none" stroke="#D4AF37" stroke-width="7"/>'
+      + '<path d="M0 14 Q40 26 80 14 T160 14" fill="none" stroke="#F3DE9A" stroke-width="2"/>'
+      + '<g transform="translate(80 14)"><path d="M0 0 C-14 -14 -26 -6 -18 4 C-12 10 -4 6 0 0 Z" fill="#D4AF37"/><path d="M0 0 C14 -14 26 -6 18 4 C12 10 4 6 0 0 Z" fill="#E8C766"/>'
+      + '<path d="M-2 2 L-10 30 L-4 26 L0 32 Z" fill="#D4AF37"/><path d="M2 2 L10 30 L4 26 L0 32 Z" fill="#C9A227"/><circle r="4" fill="#C9A227"/></g>'
+      + '<rect x="24" y="34" width="16" height="14" rx="2" fill="#2E3B4E"/><rect x="30" y="34" width="4" height="14" fill="#D4AF37"/>'
+      + '<rect x="122" y="36" width="14" height="12" rx="2" fill="#5B6B82"/><rect x="127" y="36" width="4" height="12" fill="#D4AF37"/>'
+      + '<circle cx="60" cy="42" r="2.4" fill="#D4AF37"/><circle cx="104" cy="46" r="2" fill="#2E3B4E"/>'
+      + '</pattern></defs><rect width="100%" height="8" fill="#2E3B4E"/><rect width="100%" height="60" fill="url(#pt-corp)"/></svg>',
+    corner: '<svg viewBox="0 0 170 120" width="170" height="120" aria-hidden="true">'
+      + '<rect x="24" y="52" width="86" height="64" rx="4" fill="#2E3B4E"/><rect x="18" y="40" width="98" height="18" rx="3" fill="#3C4C63"/>'
+      + '<rect x="60" y="40" width="14" height="76" fill="#D4AF37"/>'
+      + '<path d="M67 40 C50 16 30 24 44 38 C50 44 60 42 67 40 Z" fill="#D4AF37"/><path d="M67 40 C84 16 104 24 90 38 C84 44 74 42 67 40 Z" fill="#E8C766"/>'
+      + '<g transform="translate(120 58) rotate(14)"><path d="M0 8 L10 0 L40 0 L40 30 L10 30 L0 22 Z" fill="#fff" stroke="#D4AF37" stroke-width="2"/><circle cx="9" cy="15" r="3" fill="#D4AF37"/><line x1="18" y1="11" x2="34" y2="11" stroke="#2E3B4E" stroke-width="2"/><line x1="18" y1="19" x2="30" y2="19" stroke="#2E3B4E" stroke-width="2"/></g>'
+      + '<circle cx="140" cy="28" r="4" fill="#D4AF37"/><circle cx="154" cy="40" r="2.5" fill="#2E3B4E"/></svg>'
+  }
+};
+var uid = function(svg, sfx){ return svg.replace(/id="pt-/g,'id="'+sfx+'-').replace(/url\(#pt-/g,'url(#'+sfx+'-'); };
+var esc = function(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); };
+var icon = function(n){ return '<svg class="ic"><use href="#c-'+n+'"/></svg>'; };
+var chev = '<svg class="ic s chev"><use href="#i-chev"/></svg>';
+var img = function(src, alt, cls){ return src ? '<img'+(cls?' class="'+cls+'"':'')+' src="'+src+'" alt="'+esc(alt)+'" loading="lazy" onerror="this.remove()">' : ''; };
+var price = function(p){ return p ? 'from Rs. '+p.toLocaleString('en-US') : ''; };
+
+document.addEventListener('click', function(e){
+  var o = e.target.closest('[data-open]'); if (o){ document.getElementById(o.dataset.open).classList.add('on'); return; }
+  var c = e.target.closest('[data-close]'); if (c){ document.getElementById(c.dataset.close).classList.remove('on'); }
+});
+
+/* ---------- category band + themed drop-downs ---------- */
+var OV = {Wedding:'qabool hai favours', Baby:'welcome, little one', Birthday:'party ready', Islamic:'tabarruk with love', Corporate:'gifting made easy'};
+document.getElementById('dmenu').innerHTML = C.map(function(c,i){
+  return '<li><button aria-expanded="false" data-panel="'+i+'">'+icon(c.n)+'<span>'+esc(c.n)+'</span></button></li>';
+}).join('') + '<li><a class="custom" href="#">'+icon('Custom')+'<span>Custom Order</span></a></li>';
+function col(t, items, all){ return '<div class="pcol2"><h4>'+esc(t)+'</h4>'+items.map(function(x){ return '<a href="#">'+esc(x)+'</a>'; }).join('')+(all?'<a class="all" href="#">'+esc(all)+' →</a>':'')+'</div>'; }
+document.getElementById('dpanels').innerHTML = C.map(function(c,i){
+  var d = DECO[c.n];
+  return '<div class="panel" id="p'+i+'" style="background:'+d.bg+';border-bottom:5px solid '+d.accent+'"><div class="deco-top">'+uid(d.top,'pp')+'</div><div class="deco-corner">'+d.corner+'</div><div class="pin">'
+    + '<div class="pquick"><a href="#">Bestsellers</a><a href="#">New Arrivals</a><a href="#">Sale</a><a href="#" class="cu">Custom Order</a></div>'
+    + col('Shop '+c.n, c.subs.map(function(s){ return s.n; }), 'Shop all '+c.n)
+    + c.cols.map(function(k){ return col(k[0], k[1].map(function(x){ return x[0]; })); }).join('')
+    + '<a class="pphoto" href="#">'+img(c.photo.img, c.photo.t)+'<span class="ov">'+esc(OV[c.n])+'</span></a>'
+    + '</div></div>';
+}).join('');
+var nav = document.getElementById('dnav'), openId = null, hoverAt = 0;
+function setPanel(id){
+  openId = id;
+  nav.querySelectorAll('.panel').forEach(function(p){ p.classList.toggle('on', p.id === 'p'+id); });
+  nav.querySelectorAll('[data-panel]').forEach(function(b){ b.setAttribute('aria-expanded', b.dataset.panel === id ? 'true':'false'); });
+}
+nav.querySelectorAll('[data-panel]').forEach(function(b){
+  b.addEventListener('mouseenter', function(){ setPanel(b.dataset.panel); hoverAt = Date.now(); });
+  b.addEventListener('click', function(){ if (openId === b.dataset.panel && Date.now()-hoverAt > 400) setPanel(null); else setPanel(b.dataset.panel); });
+});
+nav.addEventListener('mouseleave', function(){ setPanel(null); });
+
+/* ---------- HERO SLIDES ---------- */
+var ORN = {
+  wed:'<svg viewBox="0 0 150 18" aria-hidden="true"><line x1="0" y1="9" x2="56" y2="9" stroke="#F5C518" stroke-width="1.2"/><line x1="94" y1="9" x2="150" y2="9" stroke="#F5C518" stroke-width="1.2"/><circle cx="66" cy="9" r="3.5" fill="#F39C12"/><circle cx="75" cy="9" r="5.5" fill="#F5C518"/><circle cx="75" cy="9" r="2" fill="#E67E22"/><circle cx="84" cy="9" r="3.5" fill="#F39C12"/></svg>',
+  baby:'<svg viewBox="0 0 150 18" aria-hidden="true"><line x1="0" y1="9" x2="58" y2="9" stroke="#E0607E" stroke-width="1.2"/><line x1="92" y1="9" x2="150" y2="9" stroke="#E0607E" stroke-width="1.2"/><path d="M75 2l2 4.6 5 .5-3.8 3.3 1.1 4.9L75 12.8l-4.3 2.5 1.1-4.9L68 7.1l5-.5Z" fill="#F7B6C8"/><circle cx="64" cy="9" r="2.2" fill="#A9D6F5"/><circle cx="86" cy="9" r="2.2" fill="#A9D6F5"/></svg>',
+  bday:'<svg viewBox="0 0 150 18" aria-hidden="true"><line x1="0" y1="9" x2="52" y2="9" stroke="#FFD23F" stroke-width="1.2"/><line x1="98" y1="9" x2="150" y2="9" stroke="#FFD23F" stroke-width="1.2"/><circle cx="62" cy="9" r="3" fill="#2EAADC"/><rect x="69" y="5" width="7" height="7" transform="rotate(20 72.5 8.5)" fill="#FFD23F"/><circle cx="82" cy="9" r="3" fill="#7AC74F"/><path d="M87 9q2.5-4 5 0" fill="none" stroke="#fff" stroke-width="1.6"/></svg>',
+  isl:'<svg viewBox="0 0 150 18" aria-hidden="true"><line x1="0" y1="9" x2="58" y2="9" stroke="#D9B54A" stroke-width="1.2"/><line x1="92" y1="9" x2="150" y2="9" stroke="#D9B54A" stroke-width="1.2"/><path d="M73 2a7 7 0 1 0 6 11 5.5 5.5 0 1 1-6-11Z" fill="#E8C766"/><path d="M84 5l1 2.2 2.4.3-1.8 1.6.5 2.4-2.1-1.3-2.1 1.3.5-2.4-1.8-1.6 2.4-.3Z" fill="#E8C766"/><circle cx="64" cy="9" r="1.8" fill="#E8C766"/></svg>',
+  corp:'<svg viewBox="0 0 150 18" aria-hidden="true"><line x1="0" y1="9" x2="58" y2="9" stroke="#D4AF37" stroke-width="1.2"/><line x1="92" y1="9" x2="150" y2="9" stroke="#D4AF37" stroke-width="1.2"/><path d="M75 9C69 2 63 5 66 9c2 2.4 6 1.6 9 0Z" fill="#D4AF37"/><path d="M75 9c6-7 12-4 9 0-2 2.4-6 1.6-9 0Z" fill="#E8C766"/><circle cx="75" cy="9" r="2" fill="#C9A227"/></svg>'
+};
+var SLIDES = [
+  { key:'Wedding', cls:'s-wed', script:'Shaadi Mubarak', orn:'wed',
+    h:'Favours your guests <em>will keep.</em>',
+    p:'Bid boxes, potlis and mithai boxes for your Nikkah, Mehndi and Walima \u2014 made in Lahore with your names on every tag.',
+    b1:'Shop wedding favours', b2:'Plan a custom order',
+    floats:[
+      {css:'left:46%;top:120px', cls:'bob', svg:'<svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="14" fill="#F39C12"/><circle cx="20" cy="20" r="6" fill="#F5C518"/></svg>'},
+      {css:'left:58%;bottom:120px', cls:'bob', svg:'<svg width="30" height="30" viewBox="0 0 40 40"><circle cx="20" cy="20" r="14" fill="#F5C518"/><circle cx="20" cy="20" r="6" fill="#E67E22"/></svg>'}
+    ] },
+  { key:'Baby', cls:'s-baby', script:'Welcome, little one', orn:'baby',
+    h:'Share your <em>happy news.</em>',
+    p:'Announcement boxes in tin, acrylic and hardboard — with crochet, teddies and your baby’s name.',
+    b1:'Shop baby boxes', b2:'Plan a custom order',
+    floats:[
+      {css:'left:50%;top:120px', cls:'twinkle', svg:'<svg width="34" height="34" viewBox="0 0 24 24"><path d="M12 2l2.6 6.6L21 9.3l-5 4.6 1.5 6.8L12 17l-5.5 3.7L8 13.9 3 9.3l6.4-.7Z" fill="#FBE29F"/></svg>'},
+      {css:'left:60%;bottom:130px', cls:'bob', svg:'<svg width="90" height="50" viewBox="0 0 90 50"><path d="M14 46a12 12 0 0 1 4-23 18 18 0 0 1 34-6 13 13 0 0 1 20 16 10 10 0 0 1-4 13Z" fill="#fff"/></svg>'}
+    ] },
+  { key:'Birthday', cls:'s-bday', script:'Happy Birthday', orn:'bday',
+    h:'Make their party <em>pop.</em>',
+    p:'Goody bags and boxes, banners, standees and name cutouts in the theme your child loves.',
+    b1:'Shop party favours', b2:'Plan a custom order',
+    floats:[
+      {css:'left:48%;top:110px', cls:'bob', svg:'<svg width="56" height="90" viewBox="0 0 56 90"><ellipse cx="28" cy="30" rx="22" ry="27" fill="#FFD23F"/><path d="M24 56l4-5 4 5Z" fill="#FFD23F"/><path d="M28 57 Q22 72 30 88" fill="none" stroke="#fff" stroke-width="1.4"/><ellipse cx="20" cy="20" rx="5" ry="8" fill="#fff" opacity=".5"/></svg>'},
+      {css:'left:58%;bottom:120px', cls:'bob', svg:'<svg width="46" height="76" viewBox="0 0 56 90"><ellipse cx="28" cy="30" rx="22" ry="27" fill="#2EAADC"/><path d="M24 56l4-5 4 5Z" fill="#2EAADC"/><path d="M28 57 Q34 72 26 88" fill="none" stroke="#fff" stroke-width="1.4"/><ellipse cx="20" cy="20" rx="5" ry="8" fill="#fff" opacity=".5"/></svg>'}
+    ] },
+  { key:'Islamic', cls:'s-isl', script:'Umrah Mubarak', orn:'isl',
+    h:'Tabarruk, packed <em>with love.</em>',
+    p:'Tabarruk boxes and bags for Hajj and Umrah, date boxes for Ramadan and Eid, and Ameen favours \u2014 finished in green and gold.',
+    b1:'Shop tabarruk', b2:'Plan a custom order',
+    floats:[
+      {css:'left:50%;top:0', cls:'sway', svg:'<svg width="44" height="120" viewBox="0 0 44 120"><line x1="22" y1="0" x2="22" y2="52" stroke="#D9B54A" stroke-width="1.5"/><path d="M14 52h16l-4 7H18Z" fill="#D9B54A"/><path d="M15 59h14l4 28H11Z" fill="#0F5C45" stroke="#D9B54A" stroke-width="1.6"/><path d="M19 85V71q3-6 6 0v14Z" fill="#F5D76E"/><path d="M11 87h22l-11 12Z" fill="#D9B54A"/></svg>'},
+      {css:'left:60%;top:0', cls:'sway', svg:'<svg width="34" height="90" viewBox="0 0 44 120"><line x1="22" y1="0" x2="22" y2="52" stroke="#D9B54A" stroke-width="1.5"/><path d="M14 52h16l-4 7H18Z" fill="#D9B54A"/><path d="M15 59h14l4 28H11Z" fill="#0F5C45" stroke="#D9B54A" stroke-width="1.6"/><path d="M19 85V71q3-6 6 0v14Z" fill="#F5D76E"/><path d="M11 87h22l-11 12Z" fill="#D9B54A"/></svg>'}
+    ] },
+  { key:'Corporate', cls:'s-corp', script:'With compliments', orn:'corp',
+    h:'Gifts that carry <em>your brand.</em>',
+    p:'Your logo on boxes, tags and bags. Staff giveaways, PR boxes and graduation gifts at bulk prices.',
+    b1:'Shop corporate gifts', b2:'Get a bulk quote',
+    floats:[
+      {css:'left:50%;top:120px', cls:'twinkle', svg:'<svg width="26" height="26" viewBox="0 0 24 24"><path d="M12 2l2.6 6.6L21 9.3l-5 4.6 1.5 6.8L12 17l-5.5 3.7L8 13.9 3 9.3l6.4-.7Z" fill="#D4AF37"/></svg>'}
+    ] }
+];
+var HERO = {};
+Object.keys(P).forEach(function(k){ HERO[k] = P[k][0]; });
+HERO.Wedding = P.Wedding[1]; /* Velvet Bid Box with Qabool Hai */
+document.getElementById('slides').innerHTML = SLIDES.map(function(s,i){
+  var ph = HERO[s.key], d = DECO[s.key];
+  var floats = s.floats.map(function(f){ return '<span class="float '+f.cls+'" style="'+f.css+'">'+f.svg+'</span>'; }).join('');
+  return '<div class="slide '+s.cls+(i===0?' on':'')+'" role="group" aria-roledescription="slide" aria-label="'+(i+1)+' of '+SLIDES.length+': '+s.key+'">'
+    + '<div class="bg">'+img(ph && ph.img, ph ? ph.t : '')+'</div><div class="shade"></div>'
+    + '<div class="topdeco">'+uid(d.top,'hs')+'</div>'
+    + '<div class="bigdeco">'+d.corner+'</div>' + floats
+    + '<div class="copy"><div class="inner">'
+    + '<div class="anim"><p class="script">'+esc(s.script)+'</p><span class="orn">'+ORN[s.orn]+'</span></div>'
+    + '<h2 class="anim">'+s.h+'</h2>'
+    + '<p class="anim">'+esc(s.p)+'</p>'
+    + '<div class="btns anim"><a class="cta b1" href="#">'+esc(s.b1)+'</a><a class="tlink b2" href="#">'+esc(s.b2)+'</a></div>'
+    + '</div></div></div>';
+}).join('');
+document.getElementById('pills').innerHTML = SLIDES.map(function(s,i){
+  return '<button class="pill" role="tab" aria-current="'+(i===0)+'" data-go="'+i+'">'+icon(s.key)+'<span class="l">'+esc(s.key)+'</span><span class="bar"></span></button>';
+}).join('');
+
+var cur = 0, DUR = 6000, timer = null, hero = document.getElementById('hero');
+var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function go(n){
+  var sl = document.querySelectorAll('.slide'), pl = document.querySelectorAll('.pill');
+  cur = (n + sl.length) % sl.length;
+  sl.forEach(function(s,i){ s.classList.toggle('on', i===cur); });
+  pl.forEach(function(p,i){ p.setAttribute('aria-current', i===cur ? 'true':'false'); var b = p.querySelector('.bar'); b.style.animation='none'; b.offsetWidth; b.style.animation=''; });
+  restart();
+}
+function restart(){ clearTimeout(timer); if (!reduce && !hero.classList.contains('paused')) timer = setTimeout(function(){ go(cur+1); }, DUR); }
+document.getElementById('pills').addEventListener('click', function(e){ var b = e.target.closest('[data-go]'); if (b) go(+b.dataset.go); });
+document.getElementById('prev').addEventListener('click', function(){ go(cur-1); });
+document.getElementById('next').addEventListener('click', function(){ go(cur+1); });
+hero.addEventListener('mouseenter', function(){ hero.classList.add('paused'); clearTimeout(timer); });
+hero.addEventListener('mouseleave', function(){ hero.classList.remove('paused'); restart(); });
+var sx = null;
+hero.addEventListener('touchstart', function(e){ sx = e.touches[0].clientX; }, {passive:true});
+hero.addEventListener('touchend', function(e){ if (sx === null) return; var dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1)); sx = null; });
+document.addEventListener('keydown', function(e){ if (e.key==='ArrowRight') go(cur+1); if (e.key==='ArrowLeft') go(cur-1); });
+restart();
+
+/* ---------- category tiles ---------- */
+var TINT = {Wedding:'rgba(104,14,32,.92)', Baby:'rgba(32,49,79,.88)', Birthday:'rgba(150,12,110,.92)', Islamic:'rgba(8,62,46,.92)', Corporate:'rgba(18,26,40,.92)'};
+var TAG = {Wedding:'Bid boxes, potlis & mithai boxes', Baby:'Announcement boxes', Birthday:'Goody bags, banners & cutouts', Islamic:'Tabarruk, Ramadan & Ameen', Corporate:'Logo gifts & bulk boxes'};
+document.getElementById('cats').innerHTML = C.map(function(c){
+  var ph = P[c.n][2] || P[c.n][0];
+  return '<a class="cat" href="#" style="--tint:'+TINT[c.n]+';background:'+DECO[c.n].accent+'">'+img(ph.img2 || ph.img, c.n)
+    + '<span class="cdeco">'+uid(DECO[c.n].top,'ct')+'</span>'
+    + '<span class="b"><h3>'+esc(c.n)+'</h3><span>'+esc(TAG[c.n])+'</span><span class="go">Shop now <svg class="ic s"><use href="#i-arrow"/></svg></span></span></a>';
+}).join('');
+
+/* ---------- bestsellers ---------- */
+var EVC = {Wedding:'#9B1B30', Baby:'#5A86C4', Birthday:'#B5179E', Islamic:'#0F5C45', Corporate:'#1F2A3A'};
+var picks = [['Wedding',0],['Baby',1],['Islamic',1],['Birthday',0],['Wedding',3],['Baby',2],['Islamic',3],['Corporate',0]];
+document.getElementById('prods').innerHTML = picks.map(function(k){
+  var p = P[k[0]][k[1]];
+  return '<div class="card"><div class="ph">'+img(p.img, p.t)+'<span class="bs">BESTSELLER</span><span class="ev" style="background:'+EVC[k[0]]+'">'+k[0]+'</span></div>'
+    + '<div class="b"><h3>'+esc(p.t)+'</h3><span class="pr">'+price(p.p)+'</span><a class="btn btn-out add" href="#">View options</a></div></div>';
+}).join('');
+
+/* ---------- gallery ---------- */
+var g = [['Wedding',4,'tall'],['Baby',3,''],['Islamic',2,'wide'],['Birthday',1,''],['Wedding',5,''],['Baby',4,'wide'],['Islamic',4,''],['Corporate',1,''],['Baby',5,'']];
+document.getElementById('gal').innerHTML = g.map(function(x){ var p = P[x[0]][x[1]] || P[x[0]][0]; return '<div class="'+x[2]+'" style="background:'+EVC[x[0]]+'22">'+img(p.img2 || p.img, p.t)+'</div>'; }).join('');
+
+/* ---------- mobile menu ---------- */
+document.getElementById('acc').innerHTML = C.map(function(c,i){
+  return '<div class="acc"><button aria-expanded="false" data-acc="'+i+'"><span class="ai" style="background:'+EVC[c.n]+'">'+icon(c.n)+'</span>'+esc(c.n)+chev+'</button>'
+    + '<div class="sublist" id="acc'+i+'">'+c.subs.map(function(s){ return '<a href="#">'+esc(s.n)+'</a>'; }).join('')+'<a href="#" style="color:var(--plum);font-weight:500">Shop all '+esc(c.n)+'</a></div></div>';
+}).join('');
+document.getElementById('acc').addEventListener('click', function(e){
+  var b = e.target.closest('[data-acc]'); if (!b) return;
+  var open = b.getAttribute('aria-expanded') === 'true';
+  document.querySelectorAll('#acc [data-acc]').forEach(function(x){ x.setAttribute('aria-expanded','false'); });
+  document.querySelectorAll('#acc .sublist').forEach(function(x){ x.classList.remove('on'); });
+  if (!open){ b.setAttribute('aria-expanded','true'); document.getElementById('acc'+b.dataset.acc).classList.add('on'); }
+});
+</script>
+<script src="catalog.js"></script><script src="store.js"></script></body>
+</html>
