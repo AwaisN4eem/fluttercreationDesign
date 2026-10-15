@@ -12,11 +12,12 @@ Alternatively, build with `npm run build` and deploy the generated dist folder a
 
 ## Included
 - Responsive homepage retaining reference typography, colours, illustrations, hero slides and sections; mobile category circles and bottom navigation.
-- Reference-style themed category mega menus with occasion icons, decorative SVG borders and artwork, submenu columns, and featured images. Supports pointer hover, click, keyboard opening and Escape. Mobile uses themed accordions.
+- Reference-style themed category mega menus with occasion icons, decorative SVG borders and artwork, submenu columns, and featured images. Supports pointer hover, click, keyboard opening and Escape. Mobile uses circular category shortcuts that open the matching themed accordion in the shop drawer. Duplicate category bands and hero tab bars are hidden on mobile.
 - Hero slides advance every 5 seconds; menu images rotate every 4 seconds. Both offer pause controls and respect reduced-motion preferences. Material, purpose and need browsing remain in a secondary navigation row.
 - Collections grouped by occasion, purpose, material and need. Checkbox filters use OR within a group and AND between groups; filters and sorting persist in shareable URLs.
 - Right-side desktop filters and right-side mobile filter drawer.
 - Search, price sorting, empty states, product detail galleries and personalisation fields.
+- Animated floating WhatsApp button at the bottom right on every page and device; positioned above mobile bottom navigation, hidden behind open dialogs, and respects reduced-motion preferences.
 - Shopping bag stored locally in the visitor's browser, quantity editing, removal and enquiry summary.
 - WhatsApp enquiry handoff; visitors review and send the message themselves.
 
