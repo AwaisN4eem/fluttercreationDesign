@@ -11,6 +11,7 @@ Import this folder into a Git repository, then import that repository in Vercel.
 Alternatively, build with `npm run build` and deploy the generated dist folder as a static site.
 
 ## Included
+- Flutter Creations logo on every header, footer and mobile menu: transparent and white-backed variants in `assets/brand/`. Butterfly-only favicons, Apple touch icon and web app manifest. Preparation details and original source are preserved in `assets/brand/README.md`.
 - Responsive homepage retaining reference illustrations and hero slides, with mobile category circles and bottom navigation.
 - Design C editorial styling from the supplied three-style HTML: numbered custom-order rows, fine dividers, dark/gold buttons and framed purple bulk-quote panel.
 - Functional bulk quantity stepper and presets (25 through 1000+ pieces) update the WhatsApp enquiry link. Prices are confirmed by the business.

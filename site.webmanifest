@@ -1,0 +1,23 @@
+{
+  "name": "Flutter Creations",
+  "short_name": "Flutter",
+  "description": "Personalised favour boxes, gifts and celebration decor.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#faf8fc",
+  "theme_color": "#563A79",
+  "icons": [
+    {
+      "src": "assets/brand/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/brand/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -2,3 +2,5 @@ node_modules/
 dist/
 .vercel/
 *.png
+
+!assets/brand/*.png
