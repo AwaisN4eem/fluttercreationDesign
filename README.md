@@ -18,6 +18,7 @@ Alternatively, build with `npm run build` and deploy the generated dist folder a
 - Removed homepage trust cards and footer payment/courier badge strips across devices.
 - Reference-style themed category mega menus with occasion icons, decorative SVG borders and artwork, submenu columns, and featured images. Supports pointer hover, click, keyboard opening and Escape. Mobile uses circular category shortcuts that open the matching themed accordion in the shop drawer. Duplicate category bands and hero tab bars are hidden on mobile.
 - Hero slides advance every 5 seconds; menu images rotate every 4 seconds. Both offer pause controls and respect reduced-motion preferences. Material, purpose and need browsing remain in a secondary navigation row.
+- Prominent mobile menu: search, Shop All Products, a lavender Find What You Love group for Shop by Purpose / Material / Need, occasion submenus, discovery links, and a sticky gold Custom Order action. Mobile homepage includes Shop Your Way shortcuts directly below the hero.
 - Collections grouped by occasion, purpose, material and need. Checkbox filters use OR within a group and AND between groups; filters and sorting persist in shareable URLs.
 - Right-side desktop filters and right-side mobile filter drawer.
 - Search, price sorting, empty states, product detail galleries and personalisation fields.
@@ -27,6 +28,8 @@ Alternatively, build with `npm run build` and deploy the generated dist folder a
 
 ## Before accepting real orders
 This is a frontend storefront, not an operational WooCommerce backend. It does not collect payment, reserve stock, save orders to a server or integrate couriers. Prices and 30 products were supplied in the reference HTML; zero-price items are quote-only. Minimum quantities, discounts, delivery estimates and final quotes are confirmed by the business rather than invented.
+
+New Arrivals and Best Sellers are editable presentation collections defined in `curatedCollections` in store.js; they are not calculated from a live release-date or sales feed. Replace these selections with verified catalogue/sales data when connecting WooCommerce.
 
 Product material, purpose and occasion tags are initial classifications inferred from the reference names and should be verified by the business. Edit catalog.js and the enrichment rules at the top of store.js to correct them. Some unnamed box materials default to Cardboard; verify before launch. Images are still loaded from the reference's Shopify CDN and fonts from Google Fonts; use business-owned local assets for independence. WhatsApp and email details come from the supplied HTML and should also be verified. No reviews or street address have been fabricated.
 
