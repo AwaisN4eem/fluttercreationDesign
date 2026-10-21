@@ -96,7 +96,7 @@ function nav() {
   const categoryCards = (category, key) => groups[key].items
     .filter(value => products.some(product => product.category === category && match(product, key, value)))
     .map((value, index) => { const candidates = products.filter(product => product.category === category && match(product, key, value)); return forCategory(category, value, { [key]: value }, candidates[(index + 1) % candidates.length].id); });
-  const modes = [{ key: 'type', label: 'By Type' }, { key: 'occasion', label: 'By Occasion' }, { key: 'material', label: 'By Material' }, { key: 'need', label: 'By Need' }];
+  const modes = [{ key: 'type', label: 'By Type' }, { key: 'occasion', label: 'By Occasion' }, { key: 'material', label: 'By Material' }];
   const cardsMarkup = cards => cards.map(card => '<a class="mega-image-card" href="' + esc(card.href) + '"><img src="' + esc(card.image) + '" alt="" loading="lazy"><span class="mega-card-caption"><strong>' + esc(card.label) + '</strong><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a>').join('');
   const menuCards = {};
   groups.occasion.items.forEach(category => {
@@ -130,7 +130,7 @@ function nav() {
     return '<details class="mobile-category mobile-themed-category mobile-card-category" style="--menu-bg:' + decoration.bg + ';--menu-accent:' + decoration.accent + '"><summary>' + icon(category) + category + '</summary><div class="mobile-menu-deco" aria-hidden="true">' + unique(decoration.top, 'mobile-' + category) + '</div>' +
       ['type', 'occasion'].map(key => '<section class="mobile-menu-card-section"><h3>' + (key === 'type' ? 'By Type' : 'By Occasion') + '</h3><div class="mobile-menu-card-grid">' + cardsMarkup(menuCards[category][key]) + '</div></section>').join('') +
       '<a class="mobile-all" href="' + url('occasion', category) + '">Explore all ' + category.toLowerCase() + ' →</a></details>';
-  }).join('') + ['purpose', 'material', 'need'].map(key => '<details class="mobile-category"><summary>' + groups[key].label + '</summary><div class="mobile-menu-card-grid mobile-shopping-cards">' + cardsMarkup(globalCards(key)) + '</div></details>').join('');
+  }).join('') + ['purpose', 'material'].map(key => '<details class="mobile-category"><summary>' + groups[key].label + '</summary><div class="mobile-menu-card-grid mobile-shopping-cards">' + cardsMarkup(globalCards(key)) + '</div></details>').join('');
   let hoverTimer;
   $$('.browse-group>button').forEach(button => {
     const open = () => {
@@ -188,7 +188,7 @@ function promoteMobileShoppingPaths(drawer){
  const chevron='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>';
  const icons={purpose:'<path d="M4 8h16v12H4zM3 8h18M12 8v12M12 8C8 2 3 5 6 8h6Zm0 0c4-6 9-3 6 0h-6Z"/>',material:'<path d="m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5M3 16l9 5 9-5"/>',need:'<path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z"/>'};
  const icon=key=>'<svg viewBox="0 0 24 24" aria-hidden="true">'+icons[key]+'</svg>';
- const text={purpose:{title:'By Type',hint:'Favours, gifts & decor'},material:{title:'By Material',hint:'Acrylic, velvet, tin & more'},need:{title:'By Need',hint:'Personalised, bulk & budget'}};
+ const text={purpose:{title:'By Type',hint:'Favours, gifts & decor'},material:{title:'By Material',hint:'Acrylic, velvet, tin & more'}};
  const paths=document.createElement('section');paths.className='mobile-shopping-paths';paths.setAttribute('aria-label','Find what you love');paths.innerHTML='<p class="menu-section-label">Find what you love</p>';
  const detailRows=$$('.mobile-category:not(.mobile-themed-category)',acc);
  Object.keys(text).forEach((key,i)=>{const row=detailRows[i];if(!row)return;row.classList.add('mobile-shopping-path');row.dataset.shoppingPath=key;row.id='mobile-path-'+key;const summary=$('summary',row);summary.innerHTML=`<span class="shopping-path-icon">${icon(key)}</span><span class="shopping-path-copy"><strong>${text[key].title}</strong><small>${text[key].hint}</small></span><span class="shopping-path-chevron">${chevron}</span>`;paths.append(row);row.addEventListener('toggle',()=>{$$('[data-mobile-pathway="'+key+'"]').forEach(b=>b.setAttribute('aria-expanded',String(row.open)));if(row.open)$$('.mobile-shopping-path',paths).forEach(other=>{if(other!==row)other.open=false;});});});
