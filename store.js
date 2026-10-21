@@ -280,28 +280,27 @@ function collection(){
  ['min','max'].forEach(key=>{if(state.has(key)&&(!state.get(key).trim()||!Number.isFinite(Number(state.get(key)))||Number(state.get(key))<0))state.delete(key);});
  const selectedCollection=curatedCollections[state.get('collection')];
  const heading=[...Object.keys(groups)].map(k=>state.getAll(k)).flat().filter(Boolean).join(' · ')||(selectedCollection?selectedCollection.title:state.get('q')?'Search results':'All creations');
- const filterLabels={occasion:'Occasion',purpose:'Product Type',material:'Material',need:'Options'};
+ const filterLabels={purpose:'Product Type',material:'Material',need:'Options'};
  const filterSummary=label=>`<summary><span>${label}</span><small class="filter-selection-count" hidden></small><span class="filter-expand-icon" aria-hidden="true"></span></summary>`;
  document.title=heading+' | Flutter Creations';
- main.innerHTML=`<div class="page-container">
+ main.innerHTML=`<div class="page-container collection-page">
   <div class="crumb"><a href="./">Home</a> / <a href="shop.html">Shop</a> / ${esc(heading)}</div>
-  <div class="collection-intro"><span class="kicker">THOUGHTFULLY MADE, JOYFULLY GIVEN</span><h1 class="page-title">${esc(heading)}</h1><p>Beautiful little details for your biggest moments. Find your favourite, then make it yours.</p></div>
   <div class="collection-layout">
-   <section class="collection-results" aria-label="Products">
-    <div class="collection-tools"><span id="result-count" aria-live="polite"></span><button class="filter-toggle secondary-button" aria-expanded="false" aria-controls="collection-filters">Filters ☷</button><label>Sort by <select class="sort" id="sort"><option value="featured">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option><option value="name">Name: A–Z</option></select></label></div>
-    <div class="active-filters" id="active-filters"></div><div class="product-grid" id="results"></div>
-   </section>
    <aside class="filter-sidebar" id="collection-filters" aria-label="Product filters">
     <div class="filter-head"><h2>Shop by</h2><button id="clear-filters">Clear all</button><button class="close-filters" aria-label="Close filters">×</button></div>
-    ${Object.entries(groups).map(([key,g])=>`<details class="filter-group" data-filter-group="${key}">${filterSummary(filterLabels[key])}<div class="filter-group-body">${[...g.items,...Object.values(g.subs).flat()].filter(v=>products.some(p=>match(p,key,v))).map(v=>`<label class="filter-option"><input type="checkbox" name="${key}" value="${esc(v)}" ${state.getAll(key).includes(v)?'checked':''}><span>${esc(v)}</span><small>${products.filter(p=>match(p,key,v)).length}</small></label>`).join('')}</div></details>`).join('')}
+    ${Object.entries(groups).filter(([key])=>key!=='occasion').map(([key,g])=>`<details class="filter-group" data-filter-group="${key}">${filterSummary(filterLabels[key])}<div class="filter-group-body">${[...g.items,...Object.values(g.subs).flat()].filter(v=>products.some(p=>match(p,key,v))).map(v=>`<label class="filter-option"><input type="checkbox" name="${key}" value="${esc(v)}" ${state.getAll(key).includes(v)?'checked':''}><span>${esc(v)}</span><small>${products.filter(p=>match(p,key,v)).length}</small></label>`).join('')}</div></details>`).join('')}
     <details class="filter-group" data-filter-group="price">${filterSummary('Price (PKR)')}<div class="filter-group-body">
      <p class="filter-currency-note">Pakistani rupees · per piece</p>
      <div class="filter-price-range"><label class="filter-search">Minimum (Rs.)<input type="number" min="0" step="any" inputmode="decimal" id="min-price" placeholder="0" value="${esc(state.get('min')||'')}"></label><span aria-hidden="true">–</span><label class="filter-search">Maximum (Rs.)<input type="number" min="0" step="any" inputmode="decimal" id="max-price" placeholder="Any" value="${esc(state.get('max')||'')}"></label></div>
      <label class="filter-option"><input type="checkbox" id="priced" ${state.has('priced')?'checked':''}><span>Show priced products only</span></label>
     </div></details>
     <details class="filter-group" data-filter-group="q">${filterSummary('Search collection')}<div class="filter-group-body"><label class="filter-search">Product name or detail<input id="filter-q" type="search" placeholder="Box, crochet, ribbon…" value="${esc(state.get('q')||'')}"></label></div></details>
-    <div class="filter-note">Something special in mind?<br><a href="info.html?page=custom">Let’s make it together ↗</a></div>
    </aside>
+   <section class="collection-results" aria-label="Products">
+    <div class="collection-intro"><h1 class="page-title">${esc(heading)}</h1><p>Beautiful little details for your biggest moments. Find your favourite, then make it yours.</p></div>
+    <div class="collection-tools"><span id="result-count" aria-live="polite"></span><button class="filter-toggle secondary-button" aria-expanded="false" aria-controls="collection-filters">Filters ☷</button><label>Sort by <select class="sort" id="sort"><option value="featured">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option><option value="name">Name: A–Z</option></select></label></div>
+    <div class="active-filters" id="active-filters"></div><div class="product-grid" id="results"></div>
+   </section>
   </div>
  </div>`;
  const sort=$('#sort');sort.value=state.get('sort')||'featured';
@@ -318,7 +317,7 @@ function collection(){
   if(sort.value==='name')result.sort((a,b)=>a.name.localeCompare(b.name));
   $('#results').innerHTML=result.length?result.map(tile).join(''):`<div class="empty-state"><h2>No creations match just yet.</h2><p>Try removing a filter or searching for a different detail.</p><button class="secondary-button" data-reset>Clear filters</button></div>`;
   $('#result-count').textContent=result.length+' creation'+(result.length===1?'':'s');
-  const active=[...state.entries()].filter(([k])=>Object.keys(groups).includes(k)||['q','min','max','priced'].includes(k));
+  const active=[...state.entries()].filter(([k])=>Object.keys(filterLabels).includes(k)||['q','min','max','priced'].includes(k));
   $('#active-filters').innerHTML=active.map(([k,v])=>`<button class="chip" data-remove-key="${esc(k)}" data-remove-value="${esc(v)}">${esc(k==='min'?'From '+money(v):k==='max'?'Up to '+money(v):k==='priced'?'Priced products':v)} ×</button>`).join('');
   $$('.filter-group').forEach(details=>{
    const key=details.dataset.filterGroup,count=key==='price'?Number(state.has('min')||state.has('max'))+Number(state.has('priced')):state.getAll(key).length;
@@ -338,8 +337,9 @@ function collection(){
  });
  $('#filter-q').addEventListener('input',e=>{e.target.value?state.set('q',e.target.value):state.delete('q');render();});
  sort.addEventListener('change',()=>{state.set('sort',sort.value);render();});
- $('#clear-filters').onclick=()=>location.href='shop.html';
- main.addEventListener('click',e=>{const b=e.target.closest('[data-remove-key]');if(b){state.delete(b.dataset.removeKey,b.dataset.removeValue);location.href='shop.html?'+state;}if(e.target.closest('[data-reset]'))location.href='shop.html';});
+ function resetFilters(){const clean=new URLSearchParams();['occasion','collection'].forEach(key=>state.getAll(key).forEach(value=>clean.append(key,value)));location.href='shop.html'+(clean.size?'?'+clean:'');}
+ $('#clear-filters').onclick=resetFilters;
+ main.addEventListener('click',e=>{const b=e.target.closest('[data-remove-key]');if(b){state.delete(b.dataset.removeKey,b.dataset.removeValue);location.href='shop.html?'+state;}if(e.target.closest('[data-reset]'))resetFilters();});
  $('.close-filters').onclick=()=>{$('.filter-sidebar').classList.remove('filters-open');$('.filter-toggle').setAttribute('aria-expanded','false');$('.filter-toggle').focus();};
  $('.filter-toggle').onclick=e=>{const open=$('.filter-sidebar').classList.toggle('filters-open');e.currentTarget.setAttribute('aria-expanded',String(open));};
  render();
