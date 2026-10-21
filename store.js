@@ -131,11 +131,24 @@ function nav() {
       ['type', 'occasion'].map(key => '<section class="mobile-menu-card-section"><h3>' + (key === 'type' ? 'By Type' : 'By Occasion') + '</h3><div class="mobile-menu-card-grid">' + cardsMarkup(menuCards[category][key]) + '</div></section>').join('') +
       '<a class="mobile-all" href="' + url('occasion', category) + '">Explore all ' + category.toLowerCase() + ' →</a></details>';
   }).join('') + ['purpose', 'material'].map(key => '<details class="mobile-category"><summary>' + groups[key].label + '</summary><div class="mobile-menu-card-grid mobile-shopping-cards">' + cardsMarkup(globalCards(key)) + '</div></details>').join('');
+  function fitMenuPanel(panel) {
+    if (panel.hidden || !matchMedia('(min-width:861px)').matches) return;
+    const available = Math.max(0, Math.floor(window.innerHeight - panel.getBoundingClientRect().top - 12));
+    const tight = available < 270;
+    panel.classList.toggle('mega-tight', tight);
+    panel.style.setProperty('--mega-available', available + 'px');
+    const reserved = tight ? 90 : 124;
+    panel.style.setProperty('--mega-card-height', Math.max(80, Math.min(210, available - reserved)) + 'px');
+  }
+  let resizeFrame;
+  const refit = () => { cancelAnimationFrame(resizeFrame); resizeFrame = requestAnimationFrame(() => $$('.card-mega-panel:not([hidden])').forEach(fitMenuPanel)); };
+  window.addEventListener('resize', refit);
+  window.visualViewport?.addEventListener('resize', refit);
   let hoverTimer;
   $$('.browse-group>button').forEach(button => {
     const open = () => {
       if (button.getAttribute('aria-expanded') === 'true') return;
-      closeNav(); button.setAttribute('aria-expanded', 'true'); button.nextElementSibling.hidden = false;
+      closeNav(); button.setAttribute('aria-expanded', 'true'); button.nextElementSibling.hidden = false; fitMenuPanel(button.nextElementSibling);
     };
     button.addEventListener('click', () => button.getAttribute('aria-expanded') === 'true' ? closeNav() : open());
     button.parentElement.addEventListener('mouseenter', () => {

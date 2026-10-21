@@ -53,3 +53,42 @@
 .card-nav .themed-primary>.custom-nav>span{border-bottom-color:#c08a2e}
 
 @media(max-width:860px){.shop-your-way-links{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* Compact desktop menus adapt card height to the viewport below the primary bar. */
+@media(min-width:861px){
+ .ann,.announcement{padding:6px 20px;font-size:11px;line-height:17px}
+ .hdr,.store-header{padding:11px 28px;gap:20px}
+ .hdr .site-brand-logo,.store-header .site-brand-logo{width:160px;max-height:62px}
+ .hdr .search,.store-header .store-search{height:42px;min-height:42px}
+ .hdr .search input,.store-header .store-search input{font-size:13px;padding-top:10px;padding-bottom:10px}
+ .hdr .hacts .btn,.store-header .cart-trigger{min-height:42px;padding:0 20px;font-size:13px}
+ .card-nav .themed-primary .browse-group>button,.card-nav .themed-primary>.custom-nav{min-height:72px;padding:10px 12px;gap:6px}
+ .card-nav .themed-primary .menu-icon{width:22px;height:22px}
+ .card-nav .themed-primary .browse-group>button>span,.card-nav .themed-primary>.custom-nav>span{font-size:11px}
+ .card-nav .card-mega-panel{max-height:var(--mega-available,calc(100dvh - 185px));overflow:auto}
+ .card-mega-panel .menu-top-deco{height:46px}
+ .card-mega-panel .menu-top-deco>svg{transform:scaleY(.64);transform-origin:top}
+ .card-mega-shell{max-width:1280px;grid-template-columns:180px minmax(0,1fr);gap:26px;padding:54px 28px 18px}
+ .card-mega-intro{padding-top:7px}
+ .card-mega-intro>.kicker{font-size:9px;line-height:1.5;letter-spacing:.13em}
+ .card-mega-intro h2{font-size:28px;line-height:1.08;margin:12px 0 15px;max-width:none}
+ .card-mega-intro>a{font-size:11px;padding-top:8px;padding-bottom:1px}
+ .mega-browse-tabs{margin-bottom:12px;gap:8px}
+ .mega-browse-tabs>button{min-height:32px;padding:6px 4px 9px;font-size:10px;letter-spacing:.1em}
+ .mega-card-grid{gap:12px}
+ .card-nav .mega-image-card{aspect-ratio:auto;height:var(--mega-card-height,210px)}
+ .card-nav .mega-card-caption{min-height:66px;padding:11px 11px 10px;gap:5px}
+ .card-nav .mega-card-caption>strong{font-size:18px;line-height:1.18;min-height:2.36em}
+ .card-nav .mega-card-caption>svg{width:13px;height:13px}
+ .card-nav .mega-tight .menu-top-deco{height:30px}
+ .card-nav .mega-tight .menu-top-deco>svg{transform:scaleY(.43)}
+ .mega-tight .card-mega-shell{padding-top:34px;padding-bottom:12px}
+ .mega-tight .card-mega-intro{padding-top:5px}
+ .mega-tight .card-mega-intro h2{font-size:22px;line-height:1.05;margin:10px 0}
+ .mega-tight .card-mega-intro>.kicker{font-size:8px}
+ .mega-tight .card-mega-intro>a{font-size:10px;padding-top:5px}
+ .mega-tight .mega-browse-tabs{margin-bottom:8px}
+ .mega-tight .mega-browse-tabs>button{min-height:28px;padding:4px 3px 7px;font-size:9px}
+ .card-nav .mega-tight .mega-card-caption{min-height:57px;padding:9px 9px 8px}
+ .card-nav .mega-tight .mega-card-caption>strong{font-size:16px}
+}
+@media(min-width:861px) and (max-width:1100px){.card-mega-shell{grid-template-columns:155px minmax(0,1fr);gap:20px;padding-left:20px;padding-right:20px}.card-mega-intro h2{font-size:25px}.card-nav .mega-card-caption>strong{font-size:15px}.mega-card-grid{gap:9px}}
