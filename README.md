@@ -20,7 +20,7 @@ Alternatively, build with `npm run build` and deploy the generated dist folder a
 - Hero slides advance every 5 seconds and respect pause controls and reduced-motion preferences. The extra desktop shopping-path strip and header WhatsApp button have been removed; the floating WhatsApp contact remains. Menu photographs are optimized local WebP files in assets/menu for fast, reliable loading.
 - Prominent mobile menu: search, Shop All Products, a lavender Find What You Love group for By Type / Material, occasion submenus, discovery links, and a sticky gold Custom Order action. All mobile dropdowns share one accordion: opening any section closes the previous section, with rotating chevrons and keyboard support. Mobile homepage includes Shop Your Way shortcuts directly below the hero.
 - Collections grouped by occasion, purpose, material and need. Checkbox filters use OR within a group and AND between groups; filters and sorting persist in shareable URLs.
-- Right-side desktop filters and right-side mobile filter drawer.
+- Right-side desktop filters and right-side mobile filter drawer, with collapsed +/− sections and visible active-selection counts. Price filtering uses minimum and maximum Pakistani rupees (PKR) per piece; values persist in the URL.
 - Search, price sorting, empty states, product detail galleries and personalisation fields.
 - Animated floating WhatsApp button at the bottom right on every page and device; positioned above mobile bottom navigation, hidden behind open dialogs, and respects reduced-motion preferences.
 - Shopping bag stored locally in the visitor's browser, quantity editing, removal and enquiry summary.
