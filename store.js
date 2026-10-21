@@ -21,30 +21,155 @@ const save=()=>{try{localStorage.setItem('fc-bag',JSON.stringify(bag));}catch{}u
 function updateCount(){const n=bag.reduce((a,b)=>a+b.qty,0);$$('[data-count],.badgeN,.nb').forEach(e=>e.textContent=n);$$('.mbar a').filter(e=>/Cart|Bag/.test(e.textContent)).forEach(e=>e.innerHTML='<svg class="ic"><use href="#i-cart"/></svg>Bag ('+n+')');}
 function toast(t){$('.fc-toast')?.remove();const e=document.createElement('div');e.className='fc-toast';e.setAttribute('role','status');e.textContent=t;document.body.append(e);setTimeout(()=>e.remove(),3000);}
 function tile(p){return `<article class="product-tile"><a class="tile-picture" href="product.html?id=${p.id}"><img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy"><span class="category-tag">${esc(p.category)}</span></a><h2><a href="product.html?id=${p.id}">${esc(p.name)}</a></h2><div class="tile-price">${p.price?'<small>from </small>'+money(p.price):'Request a quote'}</div><a class="tile-link" href="product.html?id=${p.id}">View & personalise <span>↗</span></a></article>`;}
-function nav(){
- const design=window.FC_MENU_DESIGN, decor=design.decorations;
- if(!$('#c-Wedding')){const sprites=document.createElementNS('http://www.w3.org/2000/svg','svg');sprites.style.display='none';sprites.setAttribute('aria-hidden','true');sprites.innerHTML=design.symbols;document.body.prepend(sprites);}
- const icon=v=>`<svg class="menu-icon" aria-hidden="true"><use href="#c-${v}"/></svg>`;
- const unique=(svg,id)=>svg.replace(/id="pt-/g,'id="menu-'+id+'-').replace(/url\(#pt-/g,'url(#menu-'+id+'-');
- const captions={Wedding:'qabool hai favours',Baby:'welcome, little one',Birthday:'party ready',Islamic:'tabarruk with love',Corporate:'gifting made easy'};
- const column=(title,links)=>`<div class="themed-column"><h3>${title}</h3>${links.map(([label,link])=>`<a href="${link}">${esc(label)}</a>`).join('')}</div>`;
- const subgroup={Wedding:[['Favour boxes',url('occasion','Wedding')+'&purpose=Favour+Boxes'],['Bags & pouches',url('occasion','Wedding')+'&purpose=Bags+%26+Pouches'],['Velvet boxes',url('occasion','Wedding')+'&material=Velvet'],['Acrylic boxes',url('occasion','Wedding')+'&material=Acrylic'],['Jute bags',url('occasion','Wedding')+'&material=Jute']],Baby:[['Baby girl announcements',url('occasion','Baby Girl')],['Baby boy announcements',url('occasion','Baby Boy')],['Tin announcement boxes',url('occasion','Baby')+'&material=Tin'],['Acrylic announcement boxes',url('occasion','Baby')+'&material=Acrylic']],Birthday:[['Goody boxes',url('occasion','Party Favours')],['Goody bags',url('occasion','Goody Bags')],['Name & number cutouts',url('occasion','Name Cutouts')],['Pastel party bags',url('occasion','Birthday')+'&q=Pastel']],Islamic:[['Hajj & Umrah tabarruk',url('occasion','Hajj & Umrah')],['Ameen favours',url('occasion','Ameen')],['Acrylic tabarruk boxes',url('occasion','Islamic')+'&material=Acrylic'],['Ribbon & tag boxes',url('occasion','Islamic')+'&q=Ribbon']],Corporate:[['Graduation gifts',url('occasion','Graduation')],['Gift packaging',url('occasion','Corporate')+'&purpose=Gift+Packaging'],['Plain boxes',url('occasion','Corporate')+'&q=Plain'],['Acrylic boxes & trays',url('occasion','Corporate')+'&material=Acrylic']]};
- function occasionPanel(v){const d=decor[v],reference=design.collections.find(c=>c.n===v);const photos=[reference.photo.img,...products.filter(p=>p.category===v).map(p=>p.image)].filter((src,i,a)=>a.indexOf(src)===i).slice(0,5);
- return `<div class="browse-panel themed-panel" id="menu-${v}" data-theme="${v}" hidden style="--menu-bg:${d.bg};--menu-accent:${d.accent}"><div class="menu-top-deco" aria-hidden="true">${unique(d.top,v)}</div><div class="themed-content"><div class="themed-quick"><a href="${url('occasion',v)}">Shop all ${v}</a><a href="${url('occasion',v)}&need=Personalised+Gifts">Personalised</a><a href="${url('occasion',v)}&need=Bulk+Orders">Bulk orders</a><a class="quick-custom" href="info.html?page=custom">Custom order</a><div class="menu-corner-deco" aria-hidden="true">${d.corner}</div></div>${column('Shop '+v,subgroup[v])}${column(v==='Birthday'?'By theme':v==='Wedding'?'By event':'Explore more',v==='Birthday'?[['Teddy bear',url('occasion','Birthday')+'&q=Teddy'],['Aeroplane',url('occasion','Birthday')+'&q=Aeroplane'],['Pastel colours',url('occasion','Birthday')+'&q=Pastel']]:groups.occasion.subs[v].map(sub=>[sub,url('occasion',sub)]))}<div class="menu-photo-slider" role="region" aria-label="${v} collection inspiration"><a class="menu-photo-link" href="${url('occasion',v)}">${photos.map((src,i)=>`<img class="menu-photo${i===0?' is-active':''}" src="${src}" alt="${v} collection — inspiration ${i+1}" loading="lazy">`).join('')}<span class="menu-photo-caption">${captions[v]}</span></a><div class="menu-photo-controls"><div class="menu-photo-dots">${photos.map((_,i)=>`<button aria-label="Show ${v} image ${i+1}" aria-pressed="${i===0}" data-photo="${i}"></button>`).join('')}</div><button class="menu-photo-pause" aria-label="Pause ${v} image slideshow" aria-pressed="false">Ⅱ</button></div></div></div></div>`;}
- const primary=groups.occasion.items.map(v=>`<div class="browse-group occasion-group"><button aria-expanded="false" aria-controls="menu-${v}">${icon(v)}<span>${v}</span></button>${occasionPanel(v)}</div>`).join('');
- const dimensions=Object.entries(groups).filter(([key])=>key!=='occasion').map(([key,g],i)=>{const d=decor[['Wedding','Baby','Corporate'][i]];return `<div class="browse-group dimension-group"><button aria-expanded="false" aria-controls="menu-${key}">${g.label}<span>⌄</span></button><div class="browse-panel themed-panel dimension-panel" id="menu-${key}" hidden style="--menu-bg:${d.bg};--menu-accent:${d.accent}"><div class="menu-top-deco" aria-hidden="true">${unique(d.top,key)}</div><div class="dimension-content"><div class="browse-heading"><span class="kicker">THE FLUTTER COLLECTION</span><h2>${g.intro}</h2><a href="shop.html">Explore all creations ↗</a><div class="dimension-art" aria-hidden="true">${d.corner}</div></div><div class="dimension-cards">${g.items.map(v=>{const p=products.find(p=>match(p,key,v));return `<a href="${url(key,v)}"><img src="${p?.image||products[0].image}" alt="${esc(v)}" loading="lazy"><span>${esc(v)} ↗</span></a>`;}).join('')}</div></div></div></div>`;}).join('');
- const host=$('#dnav')||$('.store-nav');if(host){host.className='browse-nav themed-nav';host.innerHTML=`<div class="browse-inner themed-primary">${primary}<a class="custom-nav" href="info.html?page=custom">${icon('Custom')}<span>Custom order</span></a></div><div class="browse-dimensions"><a href="shop.html">All creations ↗</a>${dimensions}</div>`;}
- if(!$('#drawer')){const shell=document.createElement('div');shell.id='drawer';shell.className='drawer';shell.innerHTML='<div class="sh" data-close="drawer"></div><div class="dpanel"><div class="dhead"><span>Shop</span><button class="drawer-close" data-close="drawer" aria-label="Close menu">×</button></div><div id="acc"></div><a class="mobile-custom-link" href="info.html?page=custom">Plan a custom order ↗</a></div>';document.body.append(shell);}
- const drawer=$('#acc');if(drawer)drawer.innerHTML=groups.occasion.items.map(v=>{const d=decor[v];return `<details class="mobile-category mobile-themed-category" style="--menu-bg:${d.bg};--menu-accent:${d.accent}"><summary>${icon(v)}${v}</summary><div class="mobile-menu-deco" aria-hidden="true">${unique(d.top,'mobile-'+v)}</div>${subgroup[v].map(([label,href])=>`<a href="${href}">${label}</a>`).join('')}<a class="mobile-all" href="${url('occasion',v)}">Shop all ${v} →</a></details>`;}).join('')+Object.entries(groups).filter(([k])=>k!=='occasion').map(([key,g])=>`<details class="mobile-category"><summary>${g.label}</summary>${g.items.map(v=>`<a href="${url(key,v)}">${esc(v)}</a>`).join('')}</details>`).join('');
- let hoverTimer;
- $$('.browse-group>button').forEach(b=>{const open=()=>{if(b.getAttribute('aria-expanded')==='true')return;closeNav();b.setAttribute('aria-expanded','true');b.nextElementSibling.hidden=false;b.parentElement.dispatchEvent(new Event('menuopen'));};b.addEventListener('click',()=>{if(b.getAttribute('aria-expanded')==='true'){closeNav();}else open();});b.parentElement.addEventListener('mouseenter',()=>{if(matchMedia('(hover:hover)').matches){clearTimeout(hoverTimer);hoverTimer=setTimeout(open,100);}});b.parentElement.addEventListener('mouseleave',()=>clearTimeout(hoverTimer));b.addEventListener('keydown',e=>{if(e.key==='ArrowDown'){e.preventDefault();open();$('a',b.nextElementSibling)?.focus();}});});
- host?.addEventListener('mouseleave',()=>{if(matchMedia('(hover:hover)').matches)closeNav();});
- setupMenuSlides();
+function nav() {
+  const design = window.FC_MENU_DESIGN;
+  const decor = design.decorations;
+  if (!$('#c-Wedding')) {
+    const sprites = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    sprites.style.display = 'none';
+    sprites.setAttribute('aria-hidden', 'true');
+    sprites.innerHTML = design.symbols;
+    document.body.prepend(sprites);
+  }
+  const icon = name => '<svg class="menu-icon" aria-hidden="true"><use href="#c-' + name + '"/></svg>';
+  const unique = (svg, id) => svg.replace(/id="pt-/g, 'id="cards-' + id + '-').replace(/url\(#pt-/g, 'url(#cards-' + id + '-');
+  const makeCard = (label, filters, imageId) => {
+    const candidates = products.filter(product => Object.entries(filters).every(([key, value]) =>
+      key === 'q' ? product.name.toLowerCase().includes(value.toLowerCase()) : match(product, key, value)));
+    const photo = products.find(product => product.id === imageId) || candidates[0] || products[0];
+    return { label, href: 'shop.html?' + new URLSearchParams(filters), image: 'assets/menu/' + photo.id + '.webp' };
+  };
+  const forCategory = (category, label, filters = {}, imageId) => makeCard(label, { occasion: category, ...filters }, imageId);
+  const types = {
+    Wedding: [
+      forCategory('Wedding', 'Favour Boxes', { purpose: 'Favour Boxes' }, 'wedding-1'),
+      forCategory('Wedding', 'Bags & Pouches', { purpose: 'Bags & Pouches' }, 'wedding-3'),
+      forCategory('Wedding', 'Velvet Boxes', { material: 'Velvet' }, 'wedding-2'),
+      forCategory('Wedding', 'Acrylic Boxes', { material: 'Acrylic' }, 'wedding-4'),
+      forCategory('Wedding', 'Jute Bags', { material: 'Jute' }, 'wedding-5')
+    ],
+    Baby: [
+      forCategory('Baby', 'Tin Boxes', { material: 'Tin' }, 'baby-1'),
+      forCategory('Baby', 'Acrylic Boxes', { material: 'Acrylic' }, 'baby-2'),
+      forCategory('Baby', 'Crochet Boxes', { q: 'Crochet' }, 'baby-4'),
+      forCategory('Baby', '3D Boxes', { q: '3D' }, 'baby-3'),
+      forCategory('Baby', 'Keepsake Boxes', { q: 'Wooden' }, 'baby-6')
+    ],
+    Birthday: [
+      forCategory('Birthday', 'Goody Boxes', { occasion: 'Party Favours' }, 'birthday-1'),
+      forCategory('Birthday', 'Goody Bags', { occasion: 'Goody Bags' }, 'birthday-4'),
+      forCategory('Birthday', 'Name Cutouts', { occasion: 'Name Cutouts' }, 'birthday-3'),
+      forCategory('Birthday', 'Pastel Party Bags', { q: 'Pastel' }, 'birthday-5')
+    ],
+    Islamic: [
+      forCategory('Islamic', 'Tabarruk Boxes', { occasion: 'Hajj & Umrah' }, 'islamic-1'),
+      forCategory('Islamic', 'Ribbon & Tag Boxes', { q: 'Ribbon' }, 'islamic-2'),
+      forCategory('Islamic', 'Acrylic Boxes', { material: 'Acrylic' }, 'islamic-5'),
+      forCategory('Islamic', 'Ameen Boxes', { occasion: 'Ameen' }, 'islamic-6')
+    ],
+    Corporate: [
+      forCategory('Corporate', 'Gift Packaging', { purpose: 'Gift Packaging' }, 'corporate-1'),
+      forCategory('Corporate', 'Acrylic Boxes & Trays', { material: 'Acrylic' }, 'corporate-4'),
+      forCategory('Corporate', 'Plain Boxes', { q: 'Plain' }, 'corporate-3'),
+      forCategory('Corporate', 'Gift Mugs', { q: 'Mug' }, 'corporate-5'),
+      forCategory('Corporate', 'Graduation Boxes', { q: 'Graduation' }, 'corporate-6')
+    ]
+  };
+  const occasions = {
+    Wedding: groups.occasion.subs.Wedding.map((event, i) => makeCard(event, { occasion: event }, ['wedding-2', 'wedding-1', 'wedding-4', 'wedding-6'][i])),
+    Baby: groups.occasion.subs.Baby.map((event, i) => makeCard(event, { occasion: event }, ['baby-2', 'baby-3', 'baby-1'][i])),
+    Birthday: [
+      forCategory('Birthday', 'Birthday Parties', {}, 'birthday-2'),
+      forCategory('Birthday', 'Teddy Bear Parties', { q: 'Teddy' }, 'birthday-1'),
+      forCategory('Birthday', 'Aeroplane Parties', { q: 'Aeroplane' }, 'birthday-2'),
+      forCategory('Birthday', 'Pastel Celebrations', { q: 'Pastel' }, 'birthday-5')
+    ],
+    Islamic: groups.occasion.subs.Islamic.map((event, i) => makeCard(event, { occasion: event }, ['islamic-2', 'islamic-6'][i])),
+    Corporate: [
+      makeCard('Graduation', { occasion: 'Graduation' }, 'corporate-1'),
+      makeCard('Corporate Gifting', { occasion: 'Corporate Gifting' }, 'corporate-4'),
+      forCategory('Corporate', "Father’s Day", { q: 'Fathers' }, 'corporate-5')
+    ]
+  };
+  const globalImageIds = { 'Favour Boxes': 'wedding-1', 'Gift Packaging': 'corporate-1', 'Bags & Pouches': 'wedding-3', 'Party Decor': 'birthday-3', 'Announcement Boxes': 'baby-1', 'Personalised Gifts': 'wedding-4', 'Bulk Orders': 'corporate-1', 'Under Rs. 400': 'wedding-1', 'Empty Packaging': 'corporate-3' };
+  const globalCards = key => groups[key].items.map(value => makeCard(value, { [key]: value }, globalImageIds[value]));
+  const categoryCards = (category, key) => groups[key].items
+    .filter(value => products.some(product => product.category === category && match(product, key, value)))
+    .map((value, index) => { const candidates = products.filter(product => product.category === category && match(product, key, value)); return forCategory(category, value, { [key]: value }, candidates[(index + 1) % candidates.length].id); });
+  const modes = [{ key: 'type', label: 'By Type' }, { key: 'occasion', label: 'By Occasion' }, { key: 'material', label: 'By Material' }, { key: 'need', label: 'By Need' }];
+  const cardsMarkup = cards => cards.map(card => '<a class="mega-image-card" href="' + esc(card.href) + '"><img src="' + esc(card.image) + '" alt="" loading="lazy"><span class="mega-card-caption"><strong>' + esc(card.label) + '</strong><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a>').join('');
+  const menuCards = {};
+  groups.occasion.items.forEach(category => {
+    menuCards[category] = { type: types[category], occasion: occasions[category], material: categoryCards(category, 'material'), need: categoryCards(category, 'need') };
+  });
+  const introductions = {
+    Wedding: ['Made for your', 'forever moments.'], Baby: ['Little arrivals.', 'Lovely details.'],
+    Birthday: ['A little magic', 'for their big day.'], Islamic: ['Meaningful gifts,', 'beautifully shared.'], Corporate: ['Thoughtful gifts.', 'Lasting impressions.']
+  };
+  function panel(category) {
+    const decoration = decor[category];
+    return '<div class="browse-panel themed-panel card-mega-panel" id="menu-' + category + '" hidden style="--menu-bg:' + decoration.bg + ';--menu-accent:' + decoration.accent + '">' +
+      '<div class="menu-top-deco" aria-hidden="true">' + unique(decoration.top, category) + '</div>' +
+      '<div class="card-mega-shell"><aside class="card-mega-intro"><span class="kicker">THE ' + category.toUpperCase() + ' COLLECTION</span><h2>' + introductions[category].join('<br>') + '</h2><a href="' + url('occasion', category) + '">Explore all ' + category.toLowerCase() + ' <span aria-hidden="true">↗</span></a></aside>' +
+      '<div class="card-mega-shop"><div class="mega-browse-tabs" role="tablist" aria-label="Browse ' + category.toLowerCase() + '">' + modes.map((mode, i) => '<button id="tab-' + category + '-' + mode.key + '" role="tab" type="button" data-mega-mode="' + mode.key + '" aria-controls="cards-' + category + '-' + mode.key + '" aria-selected="' + (i === 0) + '" tabindex="' + (i === 0 ? '0' : '-1') + '">' + mode.label + '</button>').join('') + '</div>' +
+      modes.map((mode, i) => '<div class="mega-card-grid" id="cards-' + category + '-' + mode.key + '" role="tabpanel" aria-labelledby="tab-' + category + '-' + mode.key + '"' + (i ? ' hidden' : '') + ' style="--card-count:' + Math.min(5, menuCards[category][mode.key].length) + '">' + cardsMarkup(menuCards[category][mode.key]) + '</div>').join('') + '</div></div></div>';
+  }
+  const host = $('#dnav') || $('.store-nav');
+  if (host) {
+    host.className = 'browse-nav themed-nav card-nav';
+    host.innerHTML = '<div class="browse-inner themed-primary">' + groups.occasion.items.map(category => '<div class="browse-group occasion-group"><button type="button" aria-expanded="false" aria-controls="menu-' + category + '">' + icon(category) + '<span>' + category + '</span></button>' + panel(category) + '</div>').join('') + '<a class="custom-nav" href="info.html?page=custom">' + icon('Custom') + '<span>Custom Order</span></a></div>';
+  }
+  if (!$('#drawer')) {
+    const shell = document.createElement('div'); shell.id = 'drawer'; shell.className = 'drawer';
+    shell.innerHTML = '<div class="sh" data-close="drawer"></div><div class="dpanel"><div class="dhead"><span>Shop</span><button class="drawer-close" data-close="drawer" aria-label="Close menu">×</button></div><div id="acc"></div><a class="mobile-custom-link" href="info.html?page=custom">Plan a custom order ↗</a></div>';
+    document.body.append(shell);
+  }
+  const drawer = $('#acc');
+  if (drawer) drawer.innerHTML = groups.occasion.items.map(category => {
+    const decoration = decor[category];
+    return '<details class="mobile-category mobile-themed-category mobile-card-category" style="--menu-bg:' + decoration.bg + ';--menu-accent:' + decoration.accent + '"><summary>' + icon(category) + category + '</summary><div class="mobile-menu-deco" aria-hidden="true">' + unique(decoration.top, 'mobile-' + category) + '</div>' +
+      ['type', 'occasion'].map(key => '<section class="mobile-menu-card-section"><h3>' + (key === 'type' ? 'By Type' : 'By Occasion') + '</h3><div class="mobile-menu-card-grid">' + cardsMarkup(menuCards[category][key]) + '</div></section>').join('') +
+      '<a class="mobile-all" href="' + url('occasion', category) + '">Explore all ' + category.toLowerCase() + ' →</a></details>';
+  }).join('') + ['purpose', 'material', 'need'].map(key => '<details class="mobile-category"><summary>' + groups[key].label + '</summary><div class="mobile-menu-card-grid mobile-shopping-cards">' + cardsMarkup(globalCards(key)) + '</div></details>').join('');
+  let hoverTimer;
+  $$('.browse-group>button').forEach(button => {
+    const open = () => {
+      if (button.getAttribute('aria-expanded') === 'true') return;
+      closeNav(); button.setAttribute('aria-expanded', 'true'); button.nextElementSibling.hidden = false;
+    };
+    button.addEventListener('click', () => button.getAttribute('aria-expanded') === 'true' ? closeNav() : open());
+    button.parentElement.addEventListener('mouseenter', () => {
+      if (matchMedia('(hover:hover)').matches) { clearTimeout(hoverTimer); hoverTimer = setTimeout(open, 110); }
+    });
+    button.parentElement.addEventListener('mouseleave', () => clearTimeout(hoverTimer));
+    button.addEventListener('keydown', event => {
+      if (event.key === 'ArrowDown') { event.preventDefault(); open(); $('[role="tab"]', button.nextElementSibling)?.focus(); }
+    });
+  });
+  $$('.mega-browse-tabs').forEach(tablist => {
+    const tabs = $$('[role="tab"]', tablist);
+    function activate(button) {
+      tabs.forEach(tab => {
+        const active = tab === button;
+        tab.setAttribute('aria-selected', String(active)); tab.tabIndex = active ? 0 : -1;
+        document.getElementById(tab.getAttribute('aria-controls')).hidden = !active;
+      });
+    }
+    tabs.forEach((button, index) => {
+      button.addEventListener('click', () => activate(button));
+      button.addEventListener('keydown', event => {
+        let next;
+        if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+        if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+        if (event.key === 'Home') next = 0;
+        if (event.key === 'End') next = tabs.length - 1;
+        if (next !== undefined) { event.preventDefault(); activate(tabs[next]); tabs[next].focus(); }
+      });
+    });
+  });
+  host?.addEventListener('mouseleave', () => { if (matchMedia('(hover:hover)').matches) closeNav(); });
 }
-function setupMenuSlides(){
- const reduced=matchMedia('(prefers-reduced-motion:reduce)');
- $$('.menu-photo-slider').forEach(slider=>{const images=$$('.menu-photo',slider),dots=$$('[data-photo]',slider),pause=$('.menu-photo-pause',slider),group=slider.closest('.browse-group');let current=0,timer,paused=reduced.matches;const show=n=>{current=(n+images.length)%images.length;images.forEach((img,i)=>img.classList.toggle('is-active',i===current));dots.forEach((dot,i)=>dot.setAttribute('aria-pressed',String(i===current)));};const schedule=()=>{clearTimeout(timer);if(!paused&&!document.hidden&&group.querySelector('button').getAttribute('aria-expanded')==='true')timer=setTimeout(()=>{show(current+1);schedule();},4000);};dots.forEach(dot=>dot.onclick=()=>{show(+dot.dataset.photo);schedule();});pause.onclick=()=>{paused=!paused;pause.textContent=paused?'▶':'Ⅱ';pause.setAttribute('aria-pressed',String(paused));pause.setAttribute('aria-label',(paused?'Play':'Pause')+' '+group.querySelector('button').textContent.trim()+' image slideshow');schedule();};group.addEventListener('menuopen',schedule);new MutationObserver(schedule).observe(group.querySelector('button'),{attributes:true,attributeFilter:['aria-expanded']});document.addEventListener('visibilitychange',schedule);});
-}
+
 function setupHeroSlider(){
  const hero=$('#hero');if(!hero)return;const slides=$$('.slide',hero),tabs=$$('.pill,.seg',hero);if(slides.length<2)return;
  let current=0,timer,manuallyPaused=matchMedia('(prefers-reduced-motion:reduce)').matches,hovered=false,focused=false,startX=null,startY=null;const duration=5000;
@@ -63,14 +188,14 @@ function promoteMobileShoppingPaths(drawer){
  const chevron='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>';
  const icons={purpose:'<path d="M4 8h16v12H4zM3 8h18M12 8v12M12 8C8 2 3 5 6 8h6Zm0 0c4-6 9-3 6 0h-6Z"/>',material:'<path d="m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5M3 16l9 5 9-5"/>',need:'<path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z"/>'};
  const icon=key=>'<svg viewBox="0 0 24 24" aria-hidden="true">'+icons[key]+'</svg>';
- const text={purpose:{title:'Shop by Purpose',hint:'Favours, gifts & decor'},material:{title:'Shop by Material',hint:'Acrylic, velvet, tin & more'},need:{title:'Shop by Need',hint:'Personalised, bulk & budget'}};
+ const text={purpose:{title:'By Type',hint:'Favours, gifts & decor'},material:{title:'By Material',hint:'Acrylic, velvet, tin & more'},need:{title:'By Need',hint:'Personalised, bulk & budget'}};
  const paths=document.createElement('section');paths.className='mobile-shopping-paths';paths.setAttribute('aria-label','Find what you love');paths.innerHTML='<p class="menu-section-label">Find what you love</p>';
  const detailRows=$$('.mobile-category:not(.mobile-themed-category)',acc);
  Object.keys(text).forEach((key,i)=>{const row=detailRows[i];if(!row)return;row.classList.add('mobile-shopping-path');row.dataset.shoppingPath=key;row.id='mobile-path-'+key;const summary=$('summary',row);summary.innerHTML=`<span class="shopping-path-icon">${icon(key)}</span><span class="shopping-path-copy"><strong>${text[key].title}</strong><small>${text[key].hint}</small></span><span class="shopping-path-chevron">${chevron}</span>`;paths.append(row);row.addEventListener('toggle',()=>{$$('[data-mobile-pathway="'+key+'"]').forEach(b=>b.setAttribute('aria-expanded',String(row.open)));if(row.open)$$('.mobile-shopping-path',paths).forEach(other=>{if(other!==row)other.open=false;});});});
  const header=document.createElement('div');header.className='mobile-menu-start';header.innerHTML='<form class="mobile-menu-search" action="shop.html" role="search"><input name="q" type="search" placeholder="Search products…" aria-label="Search products in menu"><button aria-label="Search products"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button></form><a class="mobile-shop-all" href="shop.html"><span>Shop All Products</span>'+chevron+'</a>';
  const occasionHeading=document.createElement('p');occasionHeading.className='menu-section-label mobile-occasion-heading';occasionHeading.textContent='Shop by occasion';acc.prepend(header,paths,occasionHeading);
  const favourites=document.createElement('div');favourites.className='mobile-menu-featured';favourites.innerHTML='<a href="shop.html?collection=new-arrivals">New Arrivals '+chevron+'</a><a href="shop.html?collection=best-sellers">Best Sellers '+chevron+'</a>';acc.append(favourites);
- const hero=$('#hero');if(hero&&!$('.mobile-shop-your-way')){const section=document.createElement('section');section.className='mobile-shop-your-way';section.setAttribute('aria-labelledby','shop-your-way-title');section.innerHTML='<span class="kicker">Find what you love</span><h2 id="shop-your-way-title">Shop your way</h2><div class="shop-your-way-links">'+Object.keys(text).map(key=>`<button type="button" data-mobile-pathway="${key}" aria-expanded="false" aria-label="${text[key].title}" aria-haspopup="dialog" aria-controls="drawer"><span class="shopping-path-icon">${icon(key)}</span><small>Shop by</small><strong>${key[0].toUpperCase()+key.slice(1)}</strong><span class="shortcut-chevron">${chevron}</span></button>`).join('')+'</div>';hero.after(section);}
+ const hero=$('#hero');if(hero&&!$('.mobile-shop-your-way')){const section=document.createElement('section');section.className='mobile-shop-your-way';section.setAttribute('aria-labelledby','shop-your-way-title');section.innerHTML='<span class="kicker">Find what you love</span><h2 id="shop-your-way-title">Shop your way</h2><div class="shop-your-way-links">'+Object.keys(text).map(key=>`<button type="button" data-mobile-pathway="${key}" aria-expanded="false" aria-label="${text[key].title}" aria-haspopup="dialog" aria-controls="drawer"><span class="shopping-path-icon">${icon(key)}</span><small>Shop by</small><strong>${key==='purpose'?'Type':key[0].toUpperCase()+key.slice(1)}</strong><span class="shortcut-chevron">${chevron}</span></button>`).join('')+'</div>';hero.after(section);}
 }
 
 function setupMobileNavigation(){
@@ -81,7 +206,7 @@ function setupMobileNavigation(){
  $$('.qchips',drawer).forEach(el=>el.remove());promoteMobileShoppingPaths(drawer);
  if(!$('.story')&&!$('.home-stories')){const nav=document.createElement('nav');nav.className='mobile-circle-menu';nav.setAttribute('aria-label','Browse occasion categories');nav.innerHTML=groups.occasion.items.map(v=>`<a href="${url('occasion',v)}" data-mobile-category="${v}"><span class="circle-icon circle-${v}"><svg class="menu-icon" aria-hidden="true"><use href="#c-${v}"/></svg></span>${v}</a>`).join('')+'<a href="info.html?page=custom"><span class="circle-icon circle-Custom"><svg class="menu-icon" aria-hidden="true"><use href="#c-Custom"/></svg></span>Custom</a>';($('.browse-nav')||$('.store-header')).after(nav);}
  $$('.story,.home-stories>a,.mobile-circle-menu>a').forEach(a=>{const v=groups.occasion.items.find(v=>a.textContent.trim()===v);if(v){a.dataset.mobileCategory=v;a.setAttribute('aria-haspopup','dialog');a.setAttribute('aria-controls','drawer');}});
- $$('.mobile-themed-category',drawer).forEach((details,i)=>details.dataset.mobileCategory=groups.occasion.items[i]);
+ $$('.mobile-themed-category',drawer).forEach((details,i)=>{details.dataset.mobileCategory=groups.occasion.items[i];details.addEventListener('toggle',()=>{if(!details.open||!drawer.classList.contains('on'))return;$$('.mobile-themed-category',drawer).forEach(other=>{if(other!==details)other.open=false;});requestAnimationFrame(()=>dialog.scrollTo({top:Math.max(0,details.offsetTop-100),behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'}));});});
  let returnFocus=null,previousOverflow='';
  function open(category,trigger,pathway){returnFocus=trigger||document.activeElement;previousOverflow=document.body.style.overflow;drawer.classList.add('on');drawer.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';const sections=$$('.mobile-themed-category',drawer);sections.forEach(d=>d.open=d.dataset.mobileCategory===category);$$('.mobile-shopping-path',drawer).forEach(d=>d.open=d.dataset.shoppingPath===pathway);$$('[data-mobile-category][aria-haspopup]').forEach(a=>a.setAttribute('aria-expanded',String(a.dataset.mobileCategory===category)));$$('[data-mobile-pathway]').forEach(b=>b.setAttribute('aria-expanded',String(b.dataset.mobilePathway===pathway)));const active=pathway?$('[data-shopping-path="'+pathway+'"]',drawer):sections.find(d=>d.open);requestAnimationFrame(()=>{const target=active?$('summary',active):$('[data-close]',drawer);target?.focus({preventScroll:true});dialog.scrollTo({top:active?Math.max(0,active.offsetTop-85):0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});});}
  function close(){drawer.classList.remove('on');drawer.setAttribute('aria-hidden','true');document.body.style.overflow=previousOverflow;$$('[data-mobile-category][aria-haspopup]').forEach(a=>a.setAttribute('aria-expanded','false'));$$('[data-mobile-pathway]').forEach(b=>b.setAttribute('aria-expanded','false'));returnFocus?.focus({preventScroll:true});}
