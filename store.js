@@ -204,7 +204,7 @@ function promoteMobileShoppingPaths(drawer){
  const text={purpose:{title:'By Type',hint:'Favours, gifts & decor'},material:{title:'By Material',hint:'Acrylic, velvet, tin & more'}};
  const paths=document.createElement('section');paths.className='mobile-shopping-paths';paths.setAttribute('aria-label','Find what you love');paths.innerHTML='<p class="menu-section-label">Find what you love</p>';
  const detailRows=$$('.mobile-category:not(.mobile-themed-category)',acc);
- Object.keys(text).forEach((key,i)=>{const row=detailRows[i];if(!row)return;row.classList.add('mobile-shopping-path');row.dataset.shoppingPath=key;row.id='mobile-path-'+key;const summary=$('summary',row);summary.innerHTML=`<span class="shopping-path-icon">${icon(key)}</span><span class="shopping-path-copy"><strong>${text[key].title}</strong><small>${text[key].hint}</small></span><span class="shopping-path-chevron">${chevron}</span>`;paths.append(row);row.addEventListener('toggle',()=>{$$('[data-mobile-pathway="'+key+'"]').forEach(b=>b.setAttribute('aria-expanded',String(row.open)));if(row.open)$$('.mobile-shopping-path',paths).forEach(other=>{if(other!==row)other.open=false;});});});
+ Object.keys(text).forEach((key,i)=>{const row=detailRows[i];if(!row)return;row.classList.add('mobile-shopping-path');row.dataset.shoppingPath=key;row.id='mobile-path-'+key;const summary=$('summary',row);summary.innerHTML=`<span class="shopping-path-icon">${icon(key)}</span><span class="shopping-path-copy"><strong>${text[key].title}</strong><small>${text[key].hint}</small></span>`;paths.append(row);});
  const header=document.createElement('div');header.className='mobile-menu-start';header.innerHTML='<form class="mobile-menu-search" action="shop.html" role="search"><input name="q" type="search" placeholder="Search products…" aria-label="Search products in menu"><button aria-label="Search products"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button></form><a class="mobile-shop-all" href="shop.html"><span>Shop All Products</span>'+chevron+'</a>';
  const occasionHeading=document.createElement('p');occasionHeading.className='menu-section-label mobile-occasion-heading';occasionHeading.textContent='Shop by occasion';acc.prepend(header,paths,occasionHeading);
  const favourites=document.createElement('div');favourites.className='mobile-menu-featured';favourites.innerHTML='<a href="shop.html?collection=new-arrivals">New Arrivals '+chevron+'</a><a href="shop.html?collection=best-sellers">Best Sellers '+chevron+'</a>';acc.append(favourites);
@@ -219,7 +219,26 @@ function setupMobileNavigation(){
  $$('.qchips',drawer).forEach(el=>el.remove());promoteMobileShoppingPaths(drawer);
  if(!$('.story')&&!$('.home-stories')){const nav=document.createElement('nav');nav.className='mobile-circle-menu';nav.setAttribute('aria-label','Browse occasion categories');nav.innerHTML=groups.occasion.items.map(v=>`<a href="${url('occasion',v)}" data-mobile-category="${v}"><span class="circle-icon circle-${v}"><svg class="menu-icon" aria-hidden="true"><use href="#c-${v}"/></svg></span>${v}</a>`).join('')+'<a href="info.html?page=custom"><span class="circle-icon circle-Custom"><svg class="menu-icon" aria-hidden="true"><use href="#c-Custom"/></svg></span>Custom</a>';($('.browse-nav')||$('.store-header')).after(nav);}
  $$('.story,.home-stories>a,.mobile-circle-menu>a').forEach(a=>{const v=groups.occasion.items.find(v=>a.textContent.trim()===v);if(v){a.dataset.mobileCategory=v;a.setAttribute('aria-haspopup','dialog');a.setAttribute('aria-controls','drawer');}});
- $$('.mobile-themed-category',drawer).forEach((details,i)=>{details.dataset.mobileCategory=groups.occasion.items[i];details.addEventListener('toggle',()=>{if(!details.open||!drawer.classList.contains('on'))return;$$('.mobile-themed-category',drawer).forEach(other=>{if(other!==details)other.open=false;});requestAnimationFrame(()=>dialog.scrollTo({top:Math.max(0,details.offsetTop-100),behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'}));});});
+ $$('.mobile-themed-category',drawer).forEach((details,i)=>{details.dataset.mobileCategory=groups.occasion.items[i];});
+ const menuSections=$$('.mobile-category',drawer);
+ function syncMobileSections(){
+  menuSections.forEach(details=>$('summary',details).setAttribute('aria-expanded',String(details.open)));
+  const visible=drawer.classList.contains('on'),active=menuSections.find(details=>details.open);
+  $$('[data-mobile-category][aria-haspopup]').forEach(a=>a.setAttribute('aria-expanded',String(visible&&a.dataset.mobileCategory===active?.dataset.mobileCategory)));
+  $$('[data-mobile-pathway]').forEach(b=>b.setAttribute('aria-expanded',String(visible&&b.dataset.mobilePathway===active?.dataset.shoppingPath)));
+ }
+ menuSections.forEach(details=>{
+  details.setAttribute('name','fc-mobile-menu');
+  const summary=$('summary',details),indicator=document.createElement('span');
+  indicator.className='mobile-dropdown-chevron';indicator.setAttribute('aria-hidden','true');indicator.innerHTML='<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>';summary.append(indicator);
+  summary.addEventListener('click',()=>{if(!details.open)menuSections.forEach(other=>{if(other!==details)other.open=false;});});
+  details.addEventListener('toggle',()=>{
+   if(details.open)menuSections.forEach(other=>{if(other!==details)other.open=false;});
+   syncMobileSections();
+   if(details.open&&drawer.classList.contains('on'))requestAnimationFrame(()=>{if(details.open&&drawer.classList.contains('on'))dialog.scrollTo({top:Math.max(0,details.offsetTop-100),behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});});
+  });
+ });
+ syncMobileSections();
  let returnFocus=null,previousOverflow='';
  function open(category,trigger,pathway){returnFocus=trigger||document.activeElement;previousOverflow=document.body.style.overflow;drawer.classList.add('on');drawer.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';const sections=$$('.mobile-themed-category',drawer);sections.forEach(d=>d.open=d.dataset.mobileCategory===category);$$('.mobile-shopping-path',drawer).forEach(d=>d.open=d.dataset.shoppingPath===pathway);$$('[data-mobile-category][aria-haspopup]').forEach(a=>a.setAttribute('aria-expanded',String(a.dataset.mobileCategory===category)));$$('[data-mobile-pathway]').forEach(b=>b.setAttribute('aria-expanded',String(b.dataset.mobilePathway===pathway)));const active=pathway?$('[data-shopping-path="'+pathway+'"]',drawer):sections.find(d=>d.open);requestAnimationFrame(()=>{const target=active?$('summary',active):$('[data-close]',drawer);target?.focus({preventScroll:true});dialog.scrollTo({top:active?Math.max(0,active.offsetTop-85):0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});});}
  function close(){drawer.classList.remove('on');drawer.setAttribute('aria-hidden','true');document.body.style.overflow=previousOverflow;$$('[data-mobile-category][aria-haspopup]').forEach(a=>a.setAttribute('aria-expanded','false'));$$('[data-mobile-pathway]').forEach(b=>b.setAttribute('aria-expanded','false'));returnFocus?.focus({preventScroll:true});}

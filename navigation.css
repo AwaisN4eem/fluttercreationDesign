@@ -47,6 +47,15 @@
 @media(min-width:861px) and (max-width:1000px){.card-mega-shell{grid-template-columns:155px minmax(0,1fr);gap:18px;padding-left:20px;padding-right:20px}.card-mega-intro h2{font-size:28px}.mega-card-caption>strong{font-size:15px}.mega-card-grid{gap:8px}.mega-card-caption{padding:12px 8px 10px}.card-nav .themed-primary .browse-group>button>span,.card-nav .themed-primary>.custom-nav>span{font-size:10px;letter-spacing:.08em}}
 @media(max-width:860px){.card-nav{display:none!important}.mobile-menu-card-grid .mega-card-caption>strong{min-height:2.4em;font-size:16px}.mobile-shopping-cards .mega-card-caption>strong{font-size:15px}.mobile-menu-card-grid .mega-card-caption{padding:14px 10px 10px}.mobile-menu-card-section h3{font-size:10px}.mobile-card-category>summary{font-size:15px}.mobile-shopping-paths .shopping-path-copy strong{font-size:14px}.mobile-menu-card-grid .mega-image-card>img{transition:none}}
 @media(max-width:350px){.mobile-menu-card-grid{gap:8px}.mobile-menu-card-grid .mega-card-caption>strong,.mobile-shopping-cards .mega-card-caption>strong{font-size:14px}.mobile-menu-card-grid .mega-card-caption{padding:13px 8px 8px;grid-template-columns:minmax(0,1fr) 10px}.mobile-menu-card-grid .mega-card-caption>svg{width:10px;height:10px}}
+/* One consistent dropdown indicator for every mobile menu section. */
+#drawer.fc-mobile-drawer .mobile-category>summary{list-style:none;min-height:48px}
+#drawer.fc-mobile-drawer .mobile-category>summary::marker{content:''}
+#drawer.fc-mobile-drawer .mobile-category>summary:after{display:none}
+#drawer.fc-mobile-drawer .mobile-dropdown-chevron{display:grid;place-items:center;flex:0 0 24px;width:24px;height:24px;margin-left:auto;color:var(--menu-accent,#65418c);transition:transform .2s ease}
+#drawer.fc-mobile-drawer .mobile-dropdown-chevron svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#drawer.fc-mobile-drawer .mobile-category[open]>summary>.mobile-dropdown-chevron{transform:rotate(180deg)}
+#drawer.fc-mobile-drawer .mobile-category>summary:focus-visible{outline:2px solid #c08a2e;outline-offset:-3px;border-radius:4px}
+@media(prefers-reduced-motion:reduce){#drawer.fc-mobile-drawer .mobile-dropdown-chevron{transition:none}}
 @media(prefers-reduced-motion:reduce){.mega-image-card>img{transition:none}}
 /* Reserve identical label space so the custom-order underline cannot shift the nav baseline. */
 .card-nav .themed-primary .browse-group>button>span,.card-nav .themed-primary>.custom-nav>span{padding-bottom:4px;border-bottom:1px solid transparent;line-height:1.2}
