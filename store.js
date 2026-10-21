@@ -128,7 +128,8 @@ function nav() {
   if (drawer) drawer.innerHTML = groups.occasion.items.map(category => {
     const decoration = decor[category];
     return '<details class="mobile-category mobile-themed-category mobile-card-category" style="--menu-bg:' + decoration.bg + ';--menu-accent:' + decoration.accent + '"><summary>' + icon(category) + category + '</summary><div class="mobile-menu-deco" aria-hidden="true">' + unique(decoration.top, 'mobile-' + category) + '</div>' +
-      ['type', 'occasion'].map(key => '<section class="mobile-menu-card-section"><h3>' + (key === 'type' ? 'By Type' : 'By Occasion') + '</h3><div class="mobile-menu-card-grid">' + cardsMarkup(menuCards[category][key]) + '</div></section>').join('') +
+      '<section class="mobile-menu-card-section"><h3>By Type</h3><div class="mobile-menu-card-grid">' + cardsMarkup(menuCards[category].type) + '</div></section>' +
+      '<details class="mobile-menu-card-section mobile-occasion-submenu"><summary><span class="mobile-dropdown-chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span><span>By Occasion</span></summary><div class="mobile-menu-card-grid">' + cardsMarkup(menuCards[category].occasion) + '</div></details>' +
       '<a class="mobile-all" href="' + url('occasion', category) + '">Explore all ' + category.toLowerCase() + ' →</a></details>';
   }).join('') + ['purpose', 'material'].map(key => '<details class="mobile-category"><summary>' + groups[key].label + '</summary><div class="mobile-menu-card-grid mobile-shopping-cards">' + cardsMarkup(globalCards(key)) + '</div></details>').join('');
   function fitMenuPanel(panel) {

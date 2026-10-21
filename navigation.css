@@ -55,6 +55,15 @@
 #drawer.fc-mobile-drawer .mobile-dropdown-chevron svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 #drawer.fc-mobile-drawer .mobile-category[open]>summary>.mobile-dropdown-chevron{transform:rotate(180deg)}
 #drawer.fc-mobile-drawer .mobile-category>summary:focus-visible{outline:2px solid #c08a2e;outline-offset:-3px;border-radius:4px}
+#drawer.fc-mobile-drawer .mobile-occasion-submenu{padding:0 0 14px;margin:0;border:0}
+#drawer.fc-mobile-drawer .mobile-occasion-submenu>summary{display:flex;align-items:center;gap:7px;min-height:44px;padding:6px 0;list-style:none;font:600 10px/1.5 var(--sans);letter-spacing:.17em;text-transform:uppercase;color:#6f527e}
+#drawer.fc-mobile-drawer .mobile-occasion-submenu>summary::marker{content:''}
+#drawer.fc-mobile-drawer .mobile-occasion-submenu>summary:after{display:none}
+#drawer.fc-mobile-drawer .mobile-occasion-submenu>summary>.mobile-dropdown-chevron{flex-basis:18px;width:18px;height:18px;margin:0;color:inherit}
+#drawer.fc-mobile-drawer .mobile-occasion-submenu>summary>.mobile-dropdown-chevron svg{width:15px;height:15px}
+#drawer.fc-mobile-drawer .mobile-occasion-submenu[open]>summary>.mobile-dropdown-chevron{transform:rotate(180deg)}
+#drawer.fc-mobile-drawer .mobile-occasion-submenu>summary:focus-visible{outline:2px solid #c08a2e;outline-offset:2px;border-radius:3px}
+#drawer.fc-mobile-drawer .mobile-occasion-submenu>.mobile-menu-card-grid{padding-top:6px}
 @media(prefers-reduced-motion:reduce){#drawer.fc-mobile-drawer .mobile-dropdown-chevron{transition:none}}
 @media(prefers-reduced-motion:reduce){.mega-image-card>img{transition:none}}
 /* Reserve identical label space so the custom-order underline cannot shift the nav baseline. */
