@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-<head><script>if(matchMedia('(min-width:761px)').matches)location.replace('./'+location.search+location.hash);</script>
+<head><link rel="stylesheet" href="brand-loader.css"><script src="brand-loader.js"></script><script>if(matchMedia('(min-width:761px)').matches)location.replace('./'+location.search+location.hash);</script>
 <meta name="description" content="Flutter Creations: favour boxes, baby announcements, wedding favours and personalised gifts in Lahore, Pakistan.">
 <link rel="stylesheet" href="store.css"><link rel="stylesheet" href="editorial.css"><link rel="stylesheet" href="navigation.css">
 <meta charset="utf-8">
@@ -254,8 +254,8 @@ footer details div{padding-bottom:10px}
   .seg i b{animation:none!important}
 }
 </style>
-<style>@media(max-width:760px){.stage{padding:0!important;display:block!important}.stage-note{display:none!important}.device,.phone{width:100%!important;max-width:none!important;border:0!important;border-radius:0!important;box-shadow:none!important}}</style><link rel="icon" type="image/png" sizes="32x32" href="assets/brand/icon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/brand/icon-16.png"><link rel="shortcut icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png"><link rel="manifest" href="site.webmanifest"><meta name="application-name" content="Flutter Creations"><meta property="og:site_name" content="Flutter Creations"></head>
-<body class="editorial-store reference-mobile">
+<style>@media(max-width:760px){.stage{padding:0!important;display:block!important}.stage-note{display:none!important}.device,.phone{width:100%!important;max-width:none!important;border:0!important;border-radius:0!important;box-shadow:none!important}}</style><link rel="icon" type="image/png" sizes="32x32" href="assets/brand/icon-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/brand/icon-16.png"><link rel="shortcut icon" href="favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png"><link rel="manifest" href="site.webmanifest"><meta name="application-name" content="Flutter Creations"><meta property="og:site_name" content="Flutter Creations"><link rel="stylesheet" href="mobile-experience.css"></head>
+<body class="editorial-store reference-mobile"><div id="brand-loader" aria-hidden="true"><div class="brand-loader-mark"><img src="assets/brand/logo-transparent.png" alt="" width="800" height="303"><span class="brand-loader-sweep"></span></div><div class="brand-loader-line"></div><p>Made for your moments</p></div>
 <svg style="display:none" aria-hidden="true">
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></symbol>
   <symbol id="i-cart" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9.5 8V6.5a2.5 2.5 0 0 1 5 0V8"/></symbol>
@@ -479,7 +479,11 @@ var ORN = {
 var uid = function(svg, sfx){ return svg.replace(/id="pt-/g,'id="'+sfx+'-').replace(/url\(#pt-/g,'url(#'+sfx+'-'); };
 var esc = function(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); };
 var icon = function(n, cls){ return '<svg class="ic'+(cls?' '+cls:'')+'"><use href="#c-'+n+'"/></svg>'; };
-var img = function(src, alt){ return src ? '<img src="'+src+'" alt="'+esc(alt)+'" loading="lazy" onerror="this.remove()">' : ''; };
+var img = function(src, alt){
+  var fallback='';
+  Object.keys(P).some(function(category){return P[category].some(function(product,index){if(product.img===src||product.img2===src){fallback='assets/menu/'+category.toLowerCase()+'-'+(index+1)+'.webp';return true;}return false;});});
+  return src ? '<img src="'+src+'" data-original-src="'+src+'" data-fallback="'+fallback+'" alt="'+esc(alt)+'" loading="lazy" onerror="this.onerror=null;if(this.dataset.fallback){this.src=this.dataset.fallback;}else{this.remove();}">' : '';
+};
 var EVC = {Wedding:'#9B1B30', Baby:'#5A86C4', Birthday:'#B5179E', Islamic:'#0F5C45', Corporate:'#1F2A3A'};
 var RING = {Wedding:'conic-gradient(#F5C518,#E67E22,#C0392B,#F5C518)', Baby:'conic-gradient(#F7B6C8,#A9D6F5,#FBE29F,#BFE8D7,#F7B6C8)', Birthday:'conic-gradient(#E84A8A,#F5B700,#2EAADC,#7AC74F,#9B59B6,#E84A8A)', Islamic:'conic-gradient(#D9B54A,#1F7A5C,#E8C766,#1F7A5C,#D9B54A)', Corporate:'conic-gradient(#D4AF37,#2E3B4E,#E8C766,#2E3B4E,#D4AF37)', Custom:'conic-gradient(#C08A2E,#563A79,#E8D3AC,#563A79,#C08A2E)'};
 var FILL = {Wedding:'#9B1B30', Baby:'#7FB8E6', Birthday:'#B5179E', Islamic:'#0F5C45', Corporate:'#1F2A3A', Custom:'#563A79'};

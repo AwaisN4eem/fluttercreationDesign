@@ -1,0 +1,13 @@
+#brand-loader{display:none}
+html.brand-loading #brand-loader{display:flex}
+#brand-loader{position:fixed;inset:0;z-index:2147483000;align-items:center;justify-content:center;flex-direction:column;gap:23px;background:radial-gradient(ellipse at 50% 42%,#fff 10%,#fbf7fc 70%);color:#796584}
+.brand-loader-mark{position:relative;width:min(252px,65vw);overflow:hidden;isolation:isolate}
+.brand-loader-mark img{display:block;width:100%;height:auto}
+.brand-loader-sweep{display:none}
+#brand-loader p{font:11px/1.5 'Jost','Segoe UI',sans-serif;letter-spacing:.2em;text-transform:uppercase;margin:0}
+.brand-loader-line{height:2px;width:96px;background:#e9deee;overflow:hidden;border-radius:2px}
+.brand-loader-line:before{content:'';display:block;width:45%;height:100%;background:linear-gradient(90deg,#ef0c7b,#17bdbe);animation:brand-loader-line 1.25s ease-in-out infinite}
+@supports ((mask-image:url('')) or (-webkit-mask-image:url(''))){.brand-loader-mark{-webkit-mask:url('assets/brand/logo-transparent.png') center/contain no-repeat;mask:url('assets/brand/logo-transparent.png') center/contain no-repeat}.brand-loader-mark img{visibility:hidden}.brand-loader-sweep{display:block;position:absolute;inset:-160%;background:conic-gradient(from 15deg,#f20b78 0deg,#f20b78 100deg,#c61555 140deg,#18bfc0 190deg,#18bfc0 275deg,#fff 310deg,#f20b78 360deg);animation:brand-logo-spin 2.1s linear infinite}}
+@keyframes brand-logo-spin{to{transform:rotate(360deg)}}
+@keyframes brand-loader-line{0%{transform:translateX(-110%)}100%{transform:translateX(330%)}}
+@media(prefers-reduced-motion:reduce){.brand-loader-sweep,.brand-loader-line:before{animation:none}.brand-loader-line:before{width:100%}}
